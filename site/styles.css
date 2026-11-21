@@ -1219,3 +1219,6 @@ h4 { font-size: 1.2em; }
 .station .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 14px; }
 .hero__more { display: inline-block; margin-top: 18px; color: var(--white); font-weight: 700; text-decoration: underline; text-underline-offset: 5px; }
 @media (max-width: 760px) { .station__3d model-viewer { height: 420px; } .station .actions .btn { flex: 1 1 100%; } }
+
+/* Loader em Better With */
+.loader p { font-family: "Better With Narrow", var(--head); font-weight: 400; font-size: 30px; letter-spacing: .01em; line-height: 1.1; }
