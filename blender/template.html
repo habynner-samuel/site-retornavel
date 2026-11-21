@@ -58,6 +58,7 @@
           <a class="btn btn--light" href="#/lojas">Onde tem retornável</a>
           <a class="btn btn--ghost-light" href="#/como-funciona">Como funciona</a>
         </div>
+        <a class="hero__more" href="https://simulador-retornavel.vercel.app/">Conheça a máquina em 3D</a>
       </div>
     </div>
     <figure class="hero__bottle" aria-label="Garrafa retornável de 2 litros girando">
@@ -113,15 +114,19 @@
       <div class="wrap split split--top station">
         <div class="reveal">
           <h2 class="h-xl">Traga sua garrafa, pegue uma cheia na estação</h2>
-          <p class="muted">A máquina Retornável fica na Estação Nova Iguaçu, no Ramal Japeri. Ela recebe o casco, imprime o vale e tem Coca-Cola gelada para você levar na volta.</p>
+          <p class="muted">A máquina Retornável fica na Estação Nova Iguaçu, no Ramal Japeri. Ela recebe o casco, imprime o vale e tem Coca-Cola para você levar na volta. Gire a máquina para ver cada parte.</p>
           <dl class="pairs">
             <div><dt>Na ida</dt><dd>Deixe o casco vazio e pegue o vale.</dd></div>
             <div><dt>Na volta</dt><dd>Use o vale e leve a cheia, pagando só o líquido.</dd></div>
             <div><dt>Pagamento</dt><dd>Pix ou aproximação.</dd></div>
           </dl>
-          <a class="btn btn--dark" href="#/lojas">Ver no mapa</a>
+          <div class="actions">
+            <a class="btn btn--dark" href="https://simulador-retornavel.vercel.app/">Conhecer a máquina</a>
+            <a class="btn btn--outline" href="https://simulador-retornavel.vercel.app/#usar">Testar a máquina</a>
+          </div>
+          <a class="link-more" href="#/lojas">Ver no mapa</a>
         </div>
-        <figure class="station__img reveal"><img src="img/09-maquina.jpg" alt="Máquina Retornável na Estação Nova Iguaçu" loading="lazy"></figure>
+        <figure class="station__3d reveal"><model-viewer src="maquina.glb" poster="img/maquina-3d.webp" alt="Máquina Retornável em 3D. Arraste para girar." loading="lazy" reveal="auto" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" interaction-prompt="none" camera-orbit="-24deg 80deg 105%" field-of-view="26deg" shadow-intensity="1" shadow-softness="0.9" exposure="1.05" environment-image="neutral"></model-viewer><figcaption>Arraste para girar · <a href="https://simulador-retornavel.vercel.app/">Tudo sobre a máquina</a></figcaption></figure>
       </div>
     </section>
 
@@ -228,6 +233,19 @@
     </div>
   </section>
   <section class="section">
+    <div class="wrap split split--top station">
+      <div class="reveal">
+        <h2 class="h-xl">Teste a máquina antes de ir</h2>
+        <p class="muted">Na tela da máquina em 3D você faz as três jornadas: sem casco, com casco e trocando o vale. Dá para ver o que ela confere no casco, como o vale sai impresso e onde a garrafa aparece.</p>
+        <div class="actions">
+          <a class="btn btn--dark" href="https://simulador-retornavel.vercel.app/#usar">Testar a máquina</a>
+          <a class="btn btn--outline" href="https://simulador-retornavel.vercel.app/">Tudo sobre a máquina</a>
+        </div>
+      </div>
+      <figure class="station__3d reveal"><model-viewer src="maquina.glb" poster="img/maquina-3d.webp" alt="Máquina Retornável em 3D. Arraste para girar." loading="lazy" reveal="auto" camera-controls disable-zoom disable-pan touch-action="pan-y" auto-rotate auto-rotate-delay="0" rotation-per-second="14deg" interaction-prompt="none" camera-orbit="12deg 82deg 105%" field-of-view="26deg" shadow-intensity="1" shadow-softness="0.9" exposure="1.05" environment-image="neutral"></model-viewer><figcaption>Arraste para girar</figcaption></figure>
+    </div>
+  </section>
+  <section class="section">
     <div class="wrap split split--top">
       <h2 class="h-xl reveal">Bom saber</h2>
       <dl class="pairs pairs--grid reveal">
@@ -278,7 +296,7 @@
     <div class="wrap">
       <h2 class="h-xl reveal">Onde trocar</h2>
       <div class="points points--2">
-        <article class="point reveal"><img src="img/09-maquina.jpg" alt="Máquina Retornável na estação" loading="lazy"><h3>Máquina na estação</h3><p>Na Estação Nova Iguaçu. Deixe o casco, pegue o vale e leve a cheia na volta, pagando só o líquido.</p></article>
+        <article class="point reveal"><img src="img/09-maquina.jpg" alt="Máquina Retornável na estação" loading="lazy"><h3>Máquina na estação</h3><p>Na Estação Nova Iguaçu. Deixe o casco, pegue o vale e leve a cheia na volta, pagando só o líquido.</p><p><a class="link-more" href="https://simulador-retornavel.vercel.app/">Conhecer a máquina</a></p></article>
         <article class="point reveal"><img src="img/06-mercadinho.jpg" alt="Loja de bairro" loading="lazy"><h3>Lojas parceiras</h3><p>Leve o casco e pague só o líquido. No mapa você vê quais lojas têm retornável hoje.</p></article>
       </div>
     </div>
@@ -307,6 +325,7 @@
         <details><summary>Como pago na máquina?</summary><p>Pix ou cartão e celular por aproximação. A máquina não aceita dinheiro.</p></details>
         <details><summary>A máquina não aceitou meu casco.</summary><p>Ela recebe só o casco da Coca-Cola Retornável 2L, vazio e sem trinca. Garrafa descartável, trincada, amassada ou com líquido volta pela mesma abertura. Se tinha líquido, esvazie e tente de novo.</p></details>
         <details><summary>Onde encontro a retornável?</summary><p>Na máquina da Estação Nova Iguaçu e nas lojas parceiras. Na página Lojas, ou no chat, você vê quais têm retornável hoje perto de você.</p></details>
+        <details><summary>Como é a máquina da estação?</summary><p>Ela tem tela touch, bocal para o casco, fenda do vale e maquininha para Pix e aproximação. No <a class="link-more" href="https://simulador-retornavel.vercel.app/">site da máquina</a> você vê cada parte em 3D e testa como usar.</p></details>
       </div>
     </div>
   </section>
@@ -329,6 +348,7 @@
 </footer>
 
 {{SHEETS}}
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <script src="seq.js?v=7"></script>
 <script src="map.js?v=5"></script>
 <script src="app.js?v=14"></script>
