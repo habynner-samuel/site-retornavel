@@ -1222,3 +1222,10 @@ h4 { font-size: 1.2em; }
 
 /* Loader em Better With */
 .loader p { font-family: "Better With Narrow", var(--head); font-weight: 400; font-size: 30px; letter-spacing: .01em; line-height: 1.1; }
+
+/* fita do topo redesenhada: nasce fina no meio da página e abre larga até cortar a borda direita
+   (sem a ponta reta de antes) */
+@media (min-width: 1081px) {
+  .ribbon-xl { left: 42%; right: auto; width: 60%; top: 40%; bottom: auto; height: 50%;
+    transform: translateY(calc(var(--p) * 50px)); }
+}
