@@ -1264,3 +1264,14 @@ html.is-loading .page--inicio .hero__copy > *, html.is-loading .page--inicio .he
 .cta { padding-bottom: clamp(190px, 18vw, 260px); }
 .ribbon-cta { inset: auto -2% -2% -2%; width: 104%; height: 44%; transform: none; }
 @media (max-width: 560px) { .cta { padding-bottom: 150px; } .ribbon-cta { height: 30%; } }
+
+/* topo no computador: a garrafa inteira à vista, da tampa à base, acima da fita
+   (antes ela tinha 176% da altura do topo e a fita cortava o rótulo) */
+@media (min-width: 1081px) {
+  .hero__bottle { left: 70%; top: 4%; bottom: auto; height: calc(92% - clamp(80px, 13vw, 200px)); min-height: 380px;
+    transform: translateX(-50%) translateY(calc(var(--p) * -6%)) rotate(calc(var(--p) * -3deg)); transform-origin: 50% 60%; }
+}
+@media (min-width: 1081px) {
+  .hero__bottle { left: 68%; top: 1%; height: calc(99% - clamp(60px, 9vw, 150px)); }
+  .hero__copy { max-width: min(700px, 46vw); }
+}
