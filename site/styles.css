@@ -1275,3 +1275,7 @@ html.is-loading .page--inicio .hero__copy > *, html.is-loading .page--inicio .he
   .hero__bottle { left: 68%; top: 1%; height: calc(99% - clamp(60px, 9vw, 150px)); }
   .hero__copy { max-width: min(700px, 46vw); }
 }
+/* garrafa maior: rótulo à vista, a base some atrás da fita */
+@media (min-width: 1081px) {
+  .hero__bottle { left: 68%; top: 3%; height: 112%; }
+}
