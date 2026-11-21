@@ -1279,3 +1279,10 @@ html.is-loading .page--inicio .hero__copy > *, html.is-loading .page--inicio .he
 @media (min-width: 1081px) {
   .hero__bottle { left: 68%; top: 3%; height: 112%; }
 }
+
+/* botões: texto maior (Better With é estreita e parecia pequena) */
+.btn, .hero .actions .btn { font-size: 26px; letter-spacing: .03em; padding: 14px 30px; line-height: 1; }
+.btn--sm { font-size: 21px; padding: 10px 20px; }
+@media (max-width: 760px) {
+  .btn, .hero .actions .btn { font-size: 23px; padding: 13px 16px; }
+}
