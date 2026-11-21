@@ -1232,3 +1232,40 @@ h4 { font-size: 1.2em; }
 /* logo Arden square na barra */
 .brand__square { background: none; overflow: hidden; }
 .brand__square img { display: block; width: 100%; height: 100%; }
+
+/* =================== barra de navegação maior (a Better With é estreita: precisa de corpo) =================== */
+:root { --top: 84px; }
+.topbar__in { height: var(--top); min-height: var(--top); gap: 32px; }
+.brand { gap: 16px; }
+.brand__square { width: 68px; height: 68px; }
+.brand__word { font-size: 32px; line-height: 1; letter-spacing: .02em; }
+.nav { gap: 34px; align-self: stretch; }
+.nav a { font-size: 27px; line-height: 1; letter-spacing: .04em; padding: 0; height: 100%; display: inline-flex; align-items: center;
+  border-bottom: 0; position: relative; }
+.nav a::after { content: ""; position: absolute; left: 50%; bottom: 14px; width: 10px; height: 10px; background: var(--red);
+  transform: translateX(-50%) scale(0); transition: transform .2s var(--ease); }
+.nav a:hover::after, .nav a[aria-current="page"]::after { transform: translateX(-50%) scale(1); }
+.nav a:hover { color: var(--red); }
+.nav__chat { align-self: center; height: auto !important; padding: 14px 22px !important; font-size: 25px !important; }
+.nav__chat::after { display: none; }
+.nav__chat:hover { background: var(--black); color: #fff !important; }
+
+@media (max-width: 1120px) {
+  :root { --top: 72px; }
+  .brand__square { width: 58px; height: 58px; }
+  .brand__word { font-size: 28px; }
+  .menu-btn { width: 52px; height: 52px; border-radius: 0; border-width: 2px; border-color: var(--black); }
+  .menu-btn span { width: 22px; height: 2.5px; }
+  .nav { gap: 0; padding: 8px 24px 24px; }
+  .nav a { height: auto; font-size: 40px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .nav a::after { left: auto; right: 0; bottom: 50%; transform: translateY(50%) scale(0); width: 14px; height: 14px; }
+  .nav a:hover::after, .nav a[aria-current="page"]::after { transform: translateY(50%) scale(1); }
+  .nav__chat { margin-top: 16px; justify-content: center; font-size: 30px !important; padding: 18px !important; }
+}
+@media (max-width: 560px) {
+  :root { --top: 66px; }
+  .brand { gap: 12px; }
+  .brand__square { width: 50px; height: 50px; }
+  .brand__word { font-size: 25px; }
+  .menu-btn { width: 46px; height: 46px; }
+}
