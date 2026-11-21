@@ -1,0 +1,35 @@
+<!-- Chat: painel flutuante -->
+<div class="sheet sheet--chat" id="sheet-chat" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+  <div class="sheet__panel chat">
+    <header class="chat__head">
+      <h2 id="chat-title">Fale com a Coca-Cola Retornável</h2>
+      <button class="chat__icon" id="chat-more" type="button" aria-label="Mais opções" aria-expanded="false" aria-controls="chat-menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="19" r="2" fill="currentColor"/></svg>
+      </button>
+      <button class="chat__icon" data-close type="button" aria-label="Minimizar o chat">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </header>
+    <div class="chat__menu" id="chat-menu" hidden>
+      <button type="button" class="chat__menu-item" id="chat-reset"><b>Recomeçar conversa</b><span>Apaga esta conversa de demonstração</span></button>
+      <p class="chat__menu-h">Atalhos</p>
+      <div id="chat-kw">
+        <button type="button" class="chat__menu-item" data-kw="MENU"><b>Menu</b><span>Todas as opções</span></button>
+        <button type="button" class="chat__menu-item" data-kw="LOJAS"><b>Onde tem retornável</b><span>Lojas perto de você</span></button>
+        <button type="button" class="chat__menu-item" data-kw="ATENDENTE"><b>Atendimento</b><span>Falar com uma pessoa</span></button>
+      </div>
+    </div>
+    <div class="chat__msgs" id="chat-msgs" aria-live="polite"></div>
+    <div class="chat__replies" id="chat-replies"></div>
+    <form class="chat__composer" id="chat-form" autocomplete="off">
+      <label class="sr" for="chat-input">Mensagem</label>
+      <input id="chat-input" placeholder="Digite sua mensagem">
+      <button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-2.5-6.5z"/></svg></button>
+    </form>
+  </div>
+</div>
+
+<button class="chat-launch" type="button" data-open="chat" aria-label="Abrir o chat">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+  <span>Fale com a gente</span>
+</button>

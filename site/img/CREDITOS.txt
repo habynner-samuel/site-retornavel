@@ -1,0 +1,2 @@
+Fotos 01 a 11: geradas por IA pelo grupo a partir do PROMPT-IMAGENS.md.
+Garrafa: modelo 3D feito no Blender para este protótipo.

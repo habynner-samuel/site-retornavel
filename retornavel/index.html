@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Retornável Chat</title>
+<meta name="description" content="Protótipo do site da iniciativa Retornável com o chat que substitui o WhatsApp: cadastro, saldo de garrafas e lembretes por SMS.">
+<style>
+:root{
+  --red:#d71920; --red-dark:#a90f15; --red-soft:#fdecec;
+  --ink:#1c1c1e; --ink-2:#4a4a50; --ink-3:#7a7a82;
+  --bg:#ffffff; --bg-2:#f6f5f3; --line:#e7e4e0;
+  --bubble-bot:#f1f0ee; --bubble-me:#d71920; --bubble-me-ink:#fff;
+  --ok:#1f7a4d; --radius:16px;
+  --shadow:0 1px 2px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f2f2f3; --ink-2:#c8c8cc; --ink-3:#94949c;
+    --bg:#141416; --bg-2:#1d1d20; --line:#2c2c31;
+    --bubble-bot:#26262a; --red-soft:#3a1517;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f2f2f3; --ink-2:#c8c8cc; --ink-3:#94949c;
+  --bg:#141416; --bg-2:#1d1d20; --line:#2c2c31;
+  --bubble-bot:#26262a; --red-soft:#3a1517;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--red)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
+/* top notice */
+.notice{background:var(--ink);color:var(--bg);font-size:13px;text-align:center;padding:6px 16px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;letter-spacing:-.01em;font-size:18px}
+.brand svg{flex:none}
+nav.tabs{display:flex;gap:4px;margin-left:auto}
+nav.tabs a{text-decoration:none;color:var(--ink-2);padding:8px 12px;border-radius:999px;font-size:15px;white-space:nowrap}
+nav.tabs a:hover{background:var(--bg-2)}
+nav.tabs a.on{color:var(--ink);background:var(--bg-2);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 20px;font-weight:700;text-decoration:none;background:var(--red);color:#fff}
+.btn:hover{background:var(--red-dark)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--bg-2)}
+.btn.sm{padding:8px 14px;font-size:14px}
+.menu-toggle{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--ink)}
+@media (max-width:860px){
+  nav.tabs{display:none;position:absolute;left:0;right:0;top:60px;background:var(--bg);flex-direction:column;padding:8px 16px 16px;border-bottom:1px solid var(--line)}
+  nav.tabs.open{display:flex}
+  nav.tabs a{padding:12px}
+  .menu-toggle{display:block}
+  .top .cta{display:none}
+}
+
+/* pages */
+.page{display:none}
+.page.on{display:block}
+section{padding:56px 0}
+section.alt{background:var(--bg-2)}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.05;letter-spacing:-.03em;margin:0 0 16px}
+h2{font-size:clamp(26px,4vw,36px);line-height:1.15;letter-spacing:-.02em;margin:0 0 12px}
+h3{font-size:19px;margin:0 0 6px}
+.lead{font-size:19px;color:var(--ink-2);max-width:620px}
+.eyebrow{display:inline-block;color:var(--red);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.muted{color:var(--ink-3)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+section.alt .card{background:var(--bg)}
+.num{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:800;margin-bottom:12px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--red-soft);color:var(--red)}
+.tag.ok{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+
+.hero{padding:64px 0 48px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.phone{width:min(320px,100%);margin:0 auto;border-radius:36px;border:10px solid var(--ink);background:var(--bg);box-shadow:var(--shadow);overflow:hidden}
+.phone .ph-head{background:var(--red);color:#fff;padding:14px 16px;font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px}
+.phone .ph-body{padding:14px;display:flex;flex-direction:column;gap:8px;min-height:320px;font-size:14px}
+
+.qr-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.qr-list a{font-size:14px;text-decoration:none;border:1px solid var(--line);padding:8px 12px;border-radius:999px;color:var(--ink)}
+.qr-list a:hover{border-color:var(--red);color:var(--red)}
+
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th,table.t td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t th{font-size:13px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.tscroll{overflow-x:auto}
+
+.sms{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.sms .from{font-size:12px;color:var(--ink-3);font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between}
+
+details.faq{border-bottom:1px solid var(--line);padding:16px 0}
+details.faq summary{cursor:pointer;font-weight:600;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+details.faq summary::after{content:"+";color:var(--red);font-weight:800}
+details.faq[open] summary::after{content:"–"}
+details.faq p{color:var(--ink-2);margin:10px 0 0}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:14px;color:var(--ink-3)}
+
+/* chat page */
+#p-chat{background:var(--bg-2)}
+.chat-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;padding:20px 0}
+@media (max-width:900px){.chat-layout{grid-template-columns:1fr;padding:0}.side{display:none}.side.open{display:block}}
+.chat{background:var(--bg);border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;height:calc(100vh - 140px);min-height:520px;overflow:hidden}
+@media (max-width:900px){.chat{border-radius:0;border-left:0;border-right:0;height:calc(100dvh - 92px)}}
+.chat-head{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--red);display:grid;place-items:center;flex:none}
+.chat-head .name{font-weight:700}
+.chat-head .status{font-size:13px;color:var(--ok)}
+.chat-head .actions{margin-left:auto;display:flex;gap:6px}
+.icon-btn{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--ink-2)}
+.icon-btn:hover{background:var(--bg-2)}
+.msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:6px;scroll-behavior:smooth}
+.b{max-width:82%;padding:9px 13px;border-radius:18px;white-space:pre-wrap;word-wrap:break-word;font-size:15px;line-height:1.45;animation:pop .18s ease-out}
+.b.bot{align-self:flex-start;background:var(--bubble-bot);border-bottom-left-radius:6px}
+.b.me{align-self:flex-end;background:var(--bubble-me);color:var(--bubble-me-ink);border-bottom-right-radius:6px}
+.b.sys{align-self:center;background:none;color:var(--ink-3);font-size:12px;padding:4px}
+.b + .b.me, .b.me + .b.bot{margin-top:6px}
+@keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.typing{align-self:flex-start;background:var(--bubble-bot);border-radius:18px;padding:12px 14px;display:flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.card-msg{align-self:flex-start;max-width:86%;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:14px;animation:pop .18s ease-out}
+.card-msg .k{font-size:12px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.code{display:flex;gap:14px;align-items:center}
+.code .big{font:800 28px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.12em}
+.shop{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.shop:last-child{border-bottom:0}
+.replies{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid var(--line)}
+.replies:empty{display:none}
+.replies button{border:1px solid var(--red);color:var(--red);background:var(--bg);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.replies button:hover{background:var(--red-soft)}
+.replies.list{flex-direction:column;align-items:stretch;max-height:46vh;overflow-y:auto}
+.replies.list button{text-align:left;border-radius:12px;display:flex;gap:10px}
+.replies.list button b{color:var(--ink-3);font-weight:700;min-width:16px}
+.composer{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:var(--bg)}
+.composer input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg-2);color:var(--ink);border-radius:999px;padding:12px 16px;font:inherit;outline:none}
+.composer input:focus{border-color:var(--red)}
+.composer button{border:0;background:var(--red);color:#fff;border-radius:50%;width:46px;height:46px;display:grid;place-items:center;flex:none}
+.kw{font-size:12px;color:var(--ink-3);padding:0 16px 10px;background:var(--bg)}
+.kw code{font:600 11px ui-monospace,Menlo,Consolas,monospace;background:var(--bg-2);padding:2px 6px;border-radius:6px;margin-right:2px;cursor:pointer}
+
+.side .card{padding:18px}
+.side h3{font-size:16px}
+.side .stack{display:flex;flex-direction:column;gap:10px}
+.side .btn.ghost{justify-content:center}
+.notif{background:var(--bg-2);border-radius:14px;padding:10px 12px;font-size:13px;animation:pop .2s ease-out}
+.notif .from{font-weight:700;font-size:12px;display:flex;justify-content:space-between;color:var(--ink-2)}
+.state-row{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid var(--line)}
+.state-row:last-child{border:0}
+.state-row span:last-child{font-weight:600;text-align:right}
+</style>
+</head>
+<body>
+<div class="notice">Protótipo acadêmico do Field Project. Não é um site oficial. Lojas, saldos e números são ilustrativos.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#/inicio" aria-label="Retornável, início">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#d71920"/><path d="M13.5 6h5v3.2c0 1 .6 1.7 1.3 2.6 1 1.2 1.7 2.4 1.7 4.4V24a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7.8c0-2 .7-3.2 1.7-4.4.7-.9 1.3-1.6 1.3-2.6z" fill="#fff"/><path d="M10.5 17.5h11v3h-11z" fill="#d71920"/></svg>
+      Retornável
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav class="tabs" id="tabs">
+      <a href="#/inicio" data-p="inicio">Início</a>
+      <a href="#/como-funciona" data-p="como-funciona">Como funciona</a>
+      <a href="#/onde-devolver" data-p="onde-devolver">Onde devolver</a>
+      <a href="#/lojistas" data-p="lojistas">Para lojistas</a>
+      <a href="#/duvidas" data-p="duvidas">Dúvidas</a>
+      <a href="#/chat" data-p="chat">Retornável Chat</a>
+    </nav>
+    <a class="btn sm cta" href="#/chat">Abrir o chat</a>
+  </div>
+</header>
+
+<main>
+<!-- INÍCIO -->
+<div class="page" id="p-inicio">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Retornável</span>
+        <h1>Sua garrafa vazia vale uma gelada.</h1>
+        <p class="lead">Devolva o casco onde for mais fácil, guarde como saldo e pegue a retornável gelada quando quiser. A gente te lembra por SMS no seu ritmo de compra.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#/chat">Começar no chat</a>
+          <a class="btn ghost" href="#/como-funciona">Ver como funciona</a>
+        </div>
+        <p class="muted" style="margin-top:18px;font-size:14px">Escaneou o QR Code da garrafa? O chat já abre sozinho, sem baixar aplicativo.</p>
+      </div>
+      <div class="phone" aria-hidden="true">
+        <div class="ph-head"><svg width="22" height="22" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M13.5 6h5v3.2c0 1 .6 1.7 1.3 2.6 1 1.2 1.7 2.4 1.7 4.4V24a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7.8c0-2 .7-3.2 1.7-4.4.7-.9 1.3-1.6 1.3-2.6z" fill="#d71920"/></svg>Retornável Chat</div>
+        <div class="ph-body">
+          <div class="b me" style="max-width:85%">Oi! Quero usar minha retornável</div>
+          <div class="b bot" style="max-width:85%">Oi! Aqui você guarda suas garrafas retornáveis como saldo e pega a gelada quando quiser. Qual é o seu nome?</div>
+          <div class="b me" style="max-width:85%">Ana</div>
+          <div class="b bot" style="max-width:85%">Prazer, Ana! Com que frequência você compra retornável?</div>
+          <div class="sms" style="margin-top:auto"><div class="from"><span>SMS · Retornável</span><span>seg 19:00</span></div>Amanhã é seu dia de compra, Ana. Seu saldo: 2 garrafas. Deixa o casco perto da porta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Em 3 passos</span>
+      <h2>Simples como pedir desconto no caixa</h2>
+      <div class="grid g3" style="margin-top:24px">
+        <div class="card"><div class="num">1</div><h3>Escaneie o QR</h3><p class="muted">Está no rótulo, na gôndola, no caixa, no coletor e na máquina. O chat abre no navegador do celular.</p></div>
+        <div class="card"><div class="num">2</div><h3>Cadastre em 30 segundos</h3><p class="muted">Nome, celular e três perguntas sobre quando você costuma comprar. CPF é opcional.</p></div>
+        <div class="card"><div class="num">3</div><h3>Devolva e guarde saldo</h3><p class="muted">Cada casco vira uma garrafa no seu saldo. Use quando quiser, pagando só o líquido.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid g2" style="align-items:center;gap:40px">
+      <div>
+        <span class="eyebrow">Lembrete por SMS</span>
+        <h2>Chega mesmo sem internet</h2>
+        <p class="lead">O lembrete vem por SMS, então chega em qualquer celular, até quando o pacote de dados acabou. Um por ciclo de compra, no dia e hora que você escolheu. Para parar, responda PARAR.</p>
+      </div>
+      <div class="grid" style="gap:10px">
+        <div class="sms"><div class="from"><span>SMS · Retornável</span><span>seg 19:00</span></div>Amanhã é seu dia de compra, Ana. Seu saldo: 2 garrafas. Deixa o casco perto da porta. Lojas com gelada: retornavel.app/l</div>
+        <div class="sms"><div class="from"><span>SMS · Retornável</span><span>ter 07:30</span></div>Hoje é dia de retornável. Leva o casco no caminho e deixa na loja ou na máquina. A gelada fica no seu saldo para a volta.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <span class="eyebrow">Teste o protótipo</span>
+      <h2>Simule a leitura de um QR Code</h2>
+      <p class="muted">Cada QR abre o chat com uma mensagem pronta e um código de origem diferente, como acontece com o QR de verdade.</p>
+      <div class="qr-list">
+        <a href="?origem=ROT#/chat">QR do rótulo</a>
+        <a href="?origem=GON#/chat">QR da gôndola</a>
+        <a href="?origem=CX#/chat">QR do caixa</a>
+        <a href="?origem=COL#/chat">QR do coletor da loja</a>
+        <a href="?origem=MAQ#/chat">QR da máquina de devolução</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- COMO FUNCIONA -->
+<div class="page" id="p-como-funciona">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Como funciona</span>
+      <h1>Seu casco é um dinheiro guardado</h1>
+      <p class="lead">Funciona como a antiga caução: a garrafa vazia que você devolve fica no seu saldo, e com ela você retira uma cheia pagando só o líquido. A novidade é poder devolver num lugar e retirar em outro, mais tarde.</p>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>Do QR ao lembrete</h2>
+      <div class="grid g2" style="margin-top:20px">
+        <div class="card"><div class="num">1</div><h3>O QR abre o chat</h3><p class="muted">Sem aplicativo e sem WhatsApp. O Retornável Chat abre direto no navegador, já com a mensagem pronta.</p></div>
+        <div class="card"><div class="num">2</div><h3>Cadastro rápido</h3><p class="muted">Nome, celular, CPF se quiser, com que frequência você compra, em que dia e se prefere o lembrete na véspera à noite ou no dia de manhã.</p></div>
+        <div class="card"><div class="num">3</div><h3>Devolveu, entrou no saldo</h3><p class="muted">No balcão o lojista digita seu celular. No coletor você escaneia o QR fixo. Na máquina você digita o número e ela conta os cascos.</p></div>
+        <div class="card"><div class="num">4</div><h3>Lembrete no seu ritmo</h3><p class="muted">Um SMS por ciclo de compra. Se você trocar antes, o lembrete daquele ciclo é cancelado. Depois de três trocas num dia diferente, o chat sugere ajustar.</p></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <h2>O que fica no chat e o que vai por SMS</h2>
+      <div class="tscroll"><table class="t" style="margin-top:16px">
+        <tr><th>Momento</th><th>Onde acontece</th></tr>
+        <tr><td>Cadastro, saldo, devolução, código para usar o saldo</td><td>Retornável Chat, no site</td></tr>
+        <tr><td>Lojas com gelada perto de você</td><td>Retornável Chat, no site</td></tr>
+        <tr><td>Mudar, pausar ou parar lembretes</td><td>Retornável Chat, ou responder PARAR no SMS</td></tr>
+        <tr><td>Lembrete de véspera (19h) ou do dia (7h30)</td><td>SMS</td></tr>
+        <tr><td>Check-in quando passou do dia sem troca</td><td>SMS, com link para o chat</td></tr>
+        <tr><td>Aviso de pausa depois de dois ciclos sem resposta</td><td>SMS</td></tr>
+      </table></div>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>Regras do lembrete</h2>
+      <div class="grid g3" style="margin-top:20px">
+        <div class="card"><h3>Um por ciclo</h3><p class="muted">Nada de mensagem todo dia. Só quando chega o seu dia de compra.</p></div>
+        <div class="card"><h3>Nunca de madrugada</h3><p class="muted">Nenhum SMS sai entre 21h e 7h.</p></div>
+        <div class="card"><h3>Pausa automática</h3><p class="muted">Dois ciclos sem resposta nem troca e os lembretes param. O saldo continua guardado.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ONDE DEVOLVER -->
+<div class="page" id="p-onde-devolver">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Onde devolver</span>
+      <h1>Três jeitos de devolver o casco</h1>
+      <div class="grid g3" style="margin-top:24px">
+        <div class="card"><span class="tag ok">Já existe</span><h3 style="margin-top:10px">Balcão do lojista</h3><p class="muted">Você entrega o casco e informa seu celular. O lojista registra e vê seu saldo na hora.</p></div>
+        <div class="card"><span class="tag">Novo</span><h3 style="margin-top:10px">Coletor na loja</h3><p class="muted">Deixe o casco e escaneie o QR do coletor. O saldo cai na hora, até 6 garrafas por dia por número.</p></div>
+        <div class="card"><span class="tag">Piloto</span><h3 style="margin-top:10px">Máquina de devolução</h3><p class="muted">Digite seu celular, a máquina conta os cascos pelo sensor e credita o saldo. Ela imprime um comprovante com a próxima data sugerida.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>Devolva de manhã, pegue a gelada na volta</h2>
+      <p class="muted">A maior parte da retornável é consumida na hora. Por isso dá para devolver num lugar e retirar em outro.</p>
+      <div class="tscroll"><table class="t" style="margin-top:12px">
+        <tr><th>Quando</th><th>Onde</th><th>O que acontece</th></tr>
+        <tr><td>7h50, saindo de casa</td><td>Máquina do supermercado</td><td>Saldo cai na hora: 1 garrafa</td></tr>
+        <tr><td>12h30, almoço</td><td>Mercadinho perto do trabalho</td><td>Ana gera o código no chat, o lojista lê e ela leva a gelada pagando o líquido</td></tr>
+        <tr><td>Sexta</td><td>Mercadinho</td><td>O lojista usa o vale para fechar a caixa de 12 com o distribuidor</td></tr>
+      </table></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <h2>Lojas participantes (exemplo)</h2>
+      <p class="muted">No chat, a busca mostra só as lojas marcadas como “Tem gelada” naquele dia. Sua localização não fica salva.</p>
+      <div class="grid g3" style="margin-top:16px" id="shopCards"></div>
+    </div>
+  </section>
+</div>
+
+<!-- LOJISTAS -->
+<div class="page" id="p-lojistas">
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">Para lojistas</span>
+      <h1>Menos casco perdido, menos conta no fim da semana</h1>
+      <p class="lead">O caminhão chega cerca de 48 horas depois do pedido, a caixa é fechada de 12 e você precisa devolver o mesmo número de vazias. O painel do lojista mostra a falta de casco durante a semana, não só no dia da entrega.</p>
+    </div>
+  </section>
+  <section class="alt">
+    <div class="wrap">
+      <h2>O que o lojista faz pelo site</h2>
+      <div class="grid g3" style="margin-top:20px">
+        <div class="card"><h3>Registrar vasilhames</h3><p class="muted">Recebi vazias, entreguei caixas ao caminhão ou quebrou: um toque e o saldo da loja atualiza.</p></div>
+        <div class="card"><h3>Ler o vale do cliente</h3><p class="muted">Cliente que devolveu em outro lugar mostra o código. O vale entra na prestação de contas junto com as vazias.</p></div>
+        <div class="card"><h3>Tem gelada / Acabou</h3><p class="muted">Um interruptor. Sua loja só aparece na busca quando está com gelada.</p></div>
+        <div class="card"><h3>Pedir recolhimento</h3><p class="muted">Os vazios estão ocupando espaço? Chame o distribuidor sem esperar a visita.</p></div>
+        <div class="card"><h3>Ver o saldo do cliente</h3><p class="muted">Ao digitar o celular no balcão, você vê o saldo e pergunta: “trouxe o casco?”.</p></div>
+        <div class="card"><h3>Adesão voluntária</h3><p class="muted">O vendedor do distribuidor convida na visita. Você entra com o código da loja que está no pedido.</p></div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap grid g2" style="gap:32px;align-items:center">
+      <div>
+        <h2>Exemplo do painel</h2>
+        <p class="muted">Números ilustrativos de uma mercearia de bairro.</p>
+      </div>
+      <div class="card">
+        <div class="state-row"><span>Cascos na loja</span><span>34</span></div>
+        <div class="state-row"><span>Vales recebidos</span><span>4</span></div>
+        <div class="state-row"><span>Próximo pedido</span><span>sexta</span></div>
+        <div class="state-row"><span>Para fechar 3 caixas de 12</span><span>32 vazias + 4 vales ✓</span></div>
+        <div class="state-row"><span>Status hoje</span><span style="color:var(--ok)">Tem gelada</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DÚVIDAS -->
+<div class="page" id="p-duvidas">
+  <section>
+    <div class="wrap" style="max-width:760px">
+      <span class="eyebrow">Dúvidas</span>
+      <h1>Perguntas frequentes</h1>
+      <details class="faq"><summary>Preciso baixar algum aplicativo?</summary><p>Não. O QR Code abre o Retornável Chat no navegador do celular. Os lembretes chegam por SMS, que funciona em qualquer aparelho.</p></details>
+      <details class="faq"><summary>Por que mudou do WhatsApp para o site e SMS?</summary><p>Mandar lembretes pelo WhatsApp para milhares de pessoas custa caro, porque cada mensagem é cobrada. O SMS custa bem menos, chega mesmo sem internet, e todo o resto acontece aqui no chat do site.</p></details>
+      <details class="faq"><summary>Sou obrigado a informar o CPF?</summary><p>Não. O que identifica você é o número de celular. O CPF é opcional, só para quem já usa o Troca Fácil com ele.</p></details>
+      <details class="faq"><summary>Como paro os lembretes?</summary><p>Responda PARAR no SMS ou digite PARAR no chat. Seu saldo continua guardado. Para voltar, digite LEMBRETE no chat.</p></details>
+      <details class="faq"><summary>O casco vale desconto?</summary><p>Não é desconto. O casco é um valor seu que fica guardado, como a antiga caução. Com ele você leva a cheia pagando só o líquido.</p></details>
+      <details class="faq"><summary>Troquei de número. Perco meu saldo?</summary><p>Não. Fale com uma pessoa da equipe pelo chat (digite ATENDENTE) e o saldo e o histórico são migrados.</p></details>
+      <details class="faq"><summary>Quais dados vocês guardam?</summary><p>Nome, celular, CPF se você informar, quando você costuma comprar, a data do seu consentimento e o histórico de trocas. A localização da busca de lojas não fica salva. Para apagar tudo, digite APAGAR MEUS DADOS no chat.</p></details>
+      <details class="faq"><summary>A máquina não aceitou meu casco. E agora?</summary><p>Ela devolve o casco sem danificar e indica o balcão mais perto. Se estiver cheia ou fora do ar, mostra outro ponto de devolução.</p></details>
+    </div>
+  </section>
+</div>
+
+<!-- CHAT -->
+<div class="page" id="p-chat">
+  <div class="wrap">
+    <div class="chat-layout">
+      <div class="chat" role="region" aria-label="Retornável Chat">
+        <div class="chat-head">
+          <div class="avatar"><svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M13.5 6h5v3.2c0 1 .6 1.7 1.3 2.6 1 1.2 1.7 2.4 1.7 4.4V24a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7.8c0-2 .7-3.2 1.7-4.4.7-.9 1.3-1.6 1.3-2.6z" fill="#fff"/></svg></div>
+          <div><div class="name">Retornável Chat</div><div class="status">online</div></div>
+          <div class="actions">
+            <button class="icon-btn" id="toggleSide">Demo</button>
+            <button class="icon-btn" id="resetChat" title="Apaga a conversa desta demonstração">Recomeçar</button>
+          </div>
+        </div>
+        <div class="msgs" id="msgs" aria-live="polite"></div>
+        <div class="replies" id="replies"></div>
+        <form class="composer" id="composer" autocomplete="off">
+          <input id="input" placeholder="Escreva uma mensagem" aria-label="Mensagem">
+          <button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+        <div class="kw" id="kw">Palavras: <code>MENU</code><code>SALDO</code><code>LOJAS</code><code>LEMBRETE</code><code>ATENDENTE</code><code>PARAR</code></div>
+      </div>
+
+      <aside class="side" id="side">
+        <div class="card">
+          <h3>Painel da demonstração</h3>
+          <p class="muted" style="font-size:13px;margin:4px 0 12px">Mostra o que o sistema guarda e como os SMS chegam. O consumidor não vê esta parte.</p>
+          <div id="stateBox"></div>
+        </div>
+        <div class="card" style="margin-top:14px">
+          <h3>Simular SMS</h3>
+          <div class="stack" style="margin-top:10px">
+            <button class="btn ghost sm" data-sim="lembrete">Lembrete do ciclo</button>
+            <button class="btn ghost sm" data-sim="checkin">Check-in de ciclo perdido</button>
+            <button class="btn ghost sm" data-sim="pausa">Aviso de pausa</button>
+            <button class="btn ghost sm" data-sim="lojista">Lojista registra devolução</button>
+          </div>
+          <div class="stack" id="smsBox" style="margin-top:12px"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer id="siteFooter">
+  <div class="wrap">Retornável · protótipo acadêmico do Field Project. Não é um site oficial e não coleta dados de verdade: tudo fica só neste navegador.</div>
+</footer>
+
+<script>
+/* ---------- dados de exemplo ---------- */
+const SHOPS=[
+  {nome:"Mercearia do Seu Zé",dist:"250 m",end:"Rua das Flores, 120",tipo:"Coletor na loja"},
+  {nome:"Mercadinho Boa Vista",dist:"600 m",end:"Av. Central, 45",tipo:"Balcão"},
+  {nome:"Supermercado do Bairro",dist:"1,2 km",end:"Rua do Comércio, 900",tipo:"Máquina de devolução"}
+];
+const ORIGENS={
+  ROT:{txt:"Oi! Quero usar minha retornável",onde:"rótulo"},
+  GON:{txt:"Oi! Quero usar minha retornável",onde:"gôndola"},
+  CX:{txt:"Oi! Quero usar minha retornável",onde:"caixa"},
+  COL:{txt:"Oi! Vim devolver garrafa",onde:"coletor da Mercearia do Seu Zé"},
+  MAQ:{txt:"Oi! Vim devolver garrafa",onde:"máquina de devolução"},
+  SITE:{txt:"Oi! Quero usar minha retornável",onde:"site"}
+};
+const DIAS=["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+const FREQ={"Toda semana":7,"A cada 15 dias":14,"Uma vez por mês":30,"Varia":10,"Só em ocasiões":0};
+
+document.getElementById('shopCards').innerHTML=SHOPS.map(s=>`<div class="card"><h3>${s.nome}</h3><p class="muted" style="margin:0">${s.end}</p><p style="margin:8px 0 0"><span class="tag">${s.tipo}</span></p></div>`).join('');
+
+/* ---------- roteamento ---------- */
+const PAGES=["inicio","como-funciona","onde-devolver","lojistas","duvidas","chat"];
+const params=new URLSearchParams(location.search);
+const origemURL=(params.get('origem')||'').toUpperCase();
+function route(){
+  let p=(location.hash.replace(/^#\/?/,'')||'').split('?')[0];
+  if(!PAGES.includes(p)) p = origemURL ? 'chat' : 'inicio';
+  PAGES.forEach(x=>document.getElementById('p-'+x).classList.toggle('on',x===p));
+  document.querySelectorAll('nav.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.p===p));
+  document.getElementById('siteFooter').style.display = p==='chat'?'none':'';
+  document.getElementById('tabs').classList.remove('open');
+  window.scrollTo(0,0);
+  if(p==='chat') Chat.open();
+}
+window.addEventListener('hashchange',route);
+document.getElementById('menuToggle').onclick=()=>{const t=document.getElementById('tabs');t.classList.toggle('open');document.getElementById('menuToggle').setAttribute('aria-expanded',t.classList.contains('open'))};
+
+/* ---------- utilidades ---------- */
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').trim().toLowerCase();
+const onlyDigits=s=>s.replace(/\D/g,'');
+function fmtCel(d){return d.length===11?`(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`:`(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`}
+function cpfValido(c){c=onlyDigits(c);if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(let t=9;t<11;t++){let s=0;for(let i=0;i<t;i++)s+=+c[i]*(t+1-i);if(((s*10)%11)%10!==+c[t])return false}return true}
+const ddmm=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const plural=n=>n===1?'1 garrafa':`${n} garrafas`;
+
+/* ---------- motor do chat ---------- */
+const Chat=(()=>{
+  const KEY='retornavel-chat-v1';
+  const $msgs=document.getElementById('msgs'),$rep=document.getElementById('replies'),$in=document.getElementById('input');
+  let S=null, queue=[], busy=false, started=false;
+
+  function fresh(origem){return{origem:origem||'SITE',step:'start',u:{saldo:0,trocas:[],esquecimentos:0,lembretes:true,pausadoAte:null,ajustado:null,recusas:0,ofertaLembrete:0},unknown:0,log:[],replies:null,listMode:false,ctx:{}}}
+  function save(){store.set(KEY,S)}
+
+  function render(m){
+    let el;
+    if(m.t==='bot'||m.t==='me'||m.t==='sys'){el=document.createElement('div');el.className='b '+m.t;el.textContent=m.x}
+    else{el=document.createElement('div');el.className='card-msg';el.innerHTML=m.h}
+    $msgs.appendChild(el);$msgs.scrollTop=$msgs.scrollHeight;
+  }
+  function renderReplies(){
+    $rep.innerHTML='';$rep.classList.toggle('list',!!S.listMode);
+    (S.replies||[]).forEach((r,i)=>{const b=document.createElement('button');b.type='button';
+      if(S.listMode){b.innerHTML=`<b>${i+1}</b><span>${esc(r)}</span>`}else b.textContent=r;
+      b.onclick=()=>send(r);$rep.appendChild(b)});
+  }
+  function pump(){
+    if(busy)return; const m=queue.shift(); if(!m){renderReplies();renderState();save();return}
+    busy=true;
+    if(m.t==='me'||m.t==='sys'){S.log.push(m);render(m);busy=false;pump();return}
+    const ty=document.createElement('div');ty.className='typing';ty.innerHTML='<i></i><i></i><i></i>';$msgs.appendChild(ty);$msgs.scrollTop=$msgs.scrollHeight;
+    const wait=Math.min(1100,350+(m.x||'').length*9);
+    setTimeout(()=>{ty.remove();S.log.push(m);render(m);busy=false;pump()},wait);
+  }
+  const bot=(...xs)=>xs.forEach(x=>queue.push({t:'bot',x}));
+  const card=h=>queue.push({t:'card',h});
+  const sys=x=>queue.push({t:'sys',x});
+  function ask(replies,list){S.replies=replies;S.listMode=!!list;}
+  function go(step){S.step=step}
+
+  /* ---- lembrete ---- */
+  function proximoLembrete(){
+    const u=S.u; if(!u.lembretes||!u.consent) return null;
+    const iv=FREQ[u.freq]; if(!iv) return null;
+    const now=new Date(); let base;
+    const last=u.trocas.length?new Date(u.trocas[u.trocas.length-1].d):null;
+    if(u.dia&&u.dia!=='Varia'){
+      const alvo=DIAS.indexOf(u.dia); base=new Date(last||now); base.setHours(0,0,0,0);
+      if(last) base.setDate(base.getDate()+Math.max(1,iv-3));
+      while(base.getDay()!==alvo) base.setDate(base.getDate()+1);
+    } else { base=new Date(last||now); base.setHours(0,0,0,0); base.setDate(base.getDate()+iv); }
+    const r=new Date(base);
+    if(u.momento==='Véspera à noite'){r.setDate(r.getDate()-1);r.setHours(19,0)}else r.setHours(7,30);
+    while(r<now) r.setDate(r.getDate()+(iv>=7?7:iv));
+    if(u.pausadoAte && r<new Date(u.pausadoAte)) return null;
+    return r;
+  }
+  function descLembrete(){
+    const r=proximoLembrete(); if(!r) return null;
+    const h=r.getHours()===19?'19h':'7h30';
+    return `${DIAS[r.getDay()].toLowerCase()}, ${ddmm(r)}, às ${h}`;
+  }
+  function padraoFrase(){
+    const u=S.u;
+    if(!u.consent||!u.lembretes) return 'Seus lembretes estão desligados.';
+    if(u.pausadoAte) return `Seus lembretes estão pausados até ${ddmm(new Date(u.pausadoAte))}.`;
+    if(u.freq==='Só em ocasiões') return 'Você compra só em ocasiões, então não mando lembrete fixo. Me conta quando vai comprar (ex.: "vou comprar sábado") que eu te lembro.';
+    const quando=u.momento==='Véspera à noite'?'na véspera, às 19h':'no dia, às 7h30';
+    const dia=u.dia&&u.dia!=='Varia'?` para quem compra ${u.dia.toLowerCase()==='sábado'||u.dia.toLowerCase()==='domingo'?'no '+u.dia.toLowerCase():'na '+u.dia.toLowerCase()}`:'';
+    return `Te lembro por SMS ${quando}${dia}, ${u.freq.toLowerCase()}.${u.ajustado?' Esse padrão foi ajustado pelo que você fez nas últimas semanas.':''}`;
+  }
+  function smsCard(texto,quando){card(`<div class="k">Prévia do SMS para ${esc(fmtCel(S.u.cel))}</div><div class="sms"><div class="from"><span>SMS · Retornável</span><span>${esc(quando||'')}</span></div>${esc(texto)}</div>`)}
+  function textoLembrete(){
+    const u=S.u;
+    return u.momento==='Véspera à noite'
+      ? `Amanhã é seu dia de compra, ${u.nome}. Seu saldo: ${plural(u.saldo)}. Deixa o casco perto da porta. Lojas com gelada: retornavel.app/l`
+      : `Hoje é dia de retornável, ${u.nome}. Leva o casco no caminho e deixa na loja ou na máquina. A gelada fica no seu saldo. retornavel.app/l`;
+  }
+
+  /* ---- menu ---- */
+  const MENU=["Devolver garrafa vazia","Guardar como saldo","Comprar retornável","Usar meu saldo","Retornável gelada perto de mim","Meus lembretes","Falar com uma pessoa"];
+  function menu(){
+    bot(`Oi, ${S.u.nome}! Seu saldo: ${plural(S.u.saldo)}. O que você quer fazer?`);
+    ask(MENU,true); go('menu');
+  }
+
+  /* ---- passos ---- */
+  const steps={
+    nome(t){
+      const n=t.trim().split(/\s+/)[0]; if(!n||n.length<2||/\d/.test(n)){bot('Me diz só o seu primeiro nome, por favor.');return}
+      S.u.nome=n.charAt(0).toUpperCase()+n.slice(1).toLowerCase();
+      if(S.ctx.fluxo==='devolucao'){ bot(`Prazer, ${S.u.nome}! Agora me passa seu celular com DDD. É por ele que seu saldo fica guardado.`); go('cel'); return }
+      bot(`Prazer, ${S.u.nome}! Agora seu celular com DDD.`,`É por ele que te identificamos no balcão e na máquina, e é para ele que vai o lembrete por SMS.`); go('cel');
+    },
+    cel(t){
+      const d=onlyDigits(t).replace(/^55(?=\d{10,11}$)/,'');
+      if(!(d.length===11&&d[2]==='9')&&d.length!==10){bot('Esse número não parece certo. Manda com DDD, assim: 21 98765-4321');return}
+      S.u.cel=d;
+      if(S.ctx.fluxo==='devolucao'){ creditar(S.ctx.qtd,S.ctx.local,true); return }
+      bot(`Anotado: ${fmtCel(d)}.`,'Quer informar seu CPF? É opcional, só se você já usa o Troca Fácil com ele.'); ask(['Pular']); go('cpf');
+    },
+    cpf(t){
+      if(norm(t)==='pular'||norm(t)==='nao'){S.u.cpf=null}
+      else if(cpfValido(t)){S.u.cpf=onlyDigits(t).replace(/^(\d{3})\d{6}(\d{2})$/,'$1.***.***-$2')}
+      else {bot('Esse CPF não confere. Digite de novo ou toque em Pular.');ask(['Pular']);return}
+      perguntaFreq();
+    },
+    freq(t){
+      const k=Object.keys(FREQ).find(f=>norm(f)===norm(t)||norm(t)===String(Object.keys(FREQ).indexOf(f)+1));
+      if(!k){bot('Escolhe uma das opções, por favor.');ask(Object.keys(FREQ));return}
+      S.u.freq=k;
+      if(k==='Só em ocasiões'){S.u.dia='Varia';S.u.momento='Véspera à noite';perguntaConsent();return}
+      bot('E em que dia costuma comprar?'); ask([...DIAS.slice(1),DIAS[0],'Varia']); go('dia');
+    },
+    dia(t){
+      const k=[...DIAS,'Varia'].find(d=>norm(d)===norm(t)||norm(d).startsWith(norm(t))&&norm(t).length>=3);
+      if(!k){bot('Escolhe um dia da lista, ou Varia.');ask([...DIAS.slice(1),DIAS[0],'Varia']);return}
+      S.u.dia=k; bot('Prefere que eu te lembre quando?'); ask(['Véspera à noite','No dia, de manhã']); go('momento');
+    },
+    momento(t){
+      const n=norm(t); let k=null;
+      if(n.includes('vesp')||n.includes('noite')) k='Véspera à noite'; else if(n.includes('dia')||n.includes('manha')) k='No dia, de manhã';
+      if(!k){ask(['Véspera à noite','No dia, de manhã']);bot('Toca numa das duas opções.');return}
+      S.u.momento=k; perguntaConsent();
+    },
+    consent(t){
+      const n=norm(t);
+      if(n==='sim'||n==='pode'||n==='s'){S.u.consent=new Date().toISOString();S.u.lembretes=true}
+      else if(n.includes('agora nao')||n==='nao'||n==='n'){S.u.consent=null;S.u.lembretes=false}
+      else{ask(['Sim','Agora não']);bot('Toca em Sim ou Agora não.');return}
+      fimCadastro();
+    },
+    oferta(t){
+      const n=norm(t);
+      if(n==='bora'||n==='sim'){perguntaFreq();return}
+      S.u.ofertaLembrete++; bot('Tranquilo. Seu saldo continua aqui. Digite MENU para ver tudo que dá para fazer.'); ask(['Menu']); go('menu');
+    },
+    menu(t){
+      const n=norm(t); const i=MENU.findIndex((m,ix)=>norm(m)===n||n===String(ix+1));
+      if(i<0) return naoEntendi();
+      S.unknown=0;
+      [devolver,devolver,comprar,usarSaldo,lojas,meusLembretes,atendente][i](i===1);
+    },
+    devLocal(t){
+      const n=norm(t);
+      if(n.includes('balc')){bot(`Entrega o casco no caixa e fala seu celular: ${fmtCel(S.u.cel)}.`,'O lojista registra do lado dele e o saldo cai aqui na hora.');ask(['Simular registro do lojista','Menu']);go('devBalcao');return}
+      if(n.includes('colet')){S.ctx.local='coletor da Mercearia do Seu Zé';bot('Quantos cascos você deixou no coletor?');ask(['1','2','Mais']);go('devQtd');return}
+      if(n.includes('maq')){S.ctx.local='máquina de devolução';const q=1+Math.floor(Math.random()*3);bot(`Digita ${fmtCel(S.u.cel)} na máquina e coloca os cascos.`);sys(`a máquina contou ${q} casco${q>1?'s':''} pelo sensor`);creditar(q,'máquina de devolução');return}
+      ask(['Balcão do lojista','Coletor na loja','Máquina']);bot('Escolhe onde você está devolvendo.');
+    },
+    devBalcao(t){
+      if(norm(t).includes('simular')){sys('o lojista registrou 2 cascos no balcão');creditar(2,'balcão do Mercadinho Boa Vista');return}
+      return global(t)||steps.menu(t);
+    },
+    devQtd(t){
+      const n=norm(t);
+      if(n==='mais'){bot('Quantos? Digita o número.');ask([]);return}
+      const q=parseInt(onlyDigits(t),10);
+      if(!q){bot('Manda só o número de cascos.');ask(['1','2','Mais']);return}
+      if(q>6){bot(`O coletor aceita até 6 garrafas por dia no seu número. Registrei 6 hoje, e o resto você registra amanhã escaneando o mesmo QR.`);creditar(6,S.ctx.local,false,true);return}
+      if(S.ctx.fluxo==='devolucao'&&!S.u.cel){S.ctx.qtd=q;bot('Para guardar no seu saldo, qual é o seu nome?');go('nome');return}
+      creditar(q,S.ctx.local);
+    },
+    usar(t){
+      const n=norm(t);
+      if(n.includes('trouxe')){bot(`Então é troca direta: entrega o casco no caixa e fala seu celular. Seu saldo de ${plural(S.u.saldo)} fica guardado.`);ask(['Menu']);go('menu');return}
+      if(n.includes('esqueci')){
+        S.u.esquecimentos++;
+        if(S.u.esquecimentos>=2&&S.u.momento==='Véspera à noite'&&S.u.lembretes){
+          bot('Acontece!','Quer que eu passe seu lembrete para a manhã do dia? Aí dá tempo de levar no caminho.');ask(['Quero','Deixa como está']);go('moverManha');return}
+        mostrarCodigo();return}
+      ask(['Trouxe','Esqueci']);bot('Trouxe o casco hoje?');
+    },
+    moverManha(t){
+      if(norm(t)==='quero'){S.u.momento='No dia, de manhã';bot(`Feito. Agora o SMS chega no dia, às 7h30.`)}
+      mostrarCodigo();
+    },
+    confirmaUso(t){
+      const n=norm(t);
+      if(n.includes('confirmo')){S.u.saldo--;registrar('uso','Mercearia do Seu Zé');bot(`Saldo usado na Mercearia do Seu Zé. Saldo atual: ${plural(S.u.saldo)}.`);ask(['Menu']);go('menu');return}
+      if(n.includes('nao fui')){bot('Certo, não baixei nada do seu saldo. Vou avisar a equipe para conferir com a loja.');ask(['Menu','Falar com uma pessoa']);go('menu');return}
+      if(n.includes('simular')){sys('o lojista leu o código e registrou 1 garrafa');bot('O Seu Zé registrou 1 garrafa. Confirma?');ask(['Confirmo','Não fui eu']);return}
+      if(n.includes('venceu')||n.includes('novo')){mostrarCodigo(true);return}
+      return global(t)||naoEntendi();
+    },
+    lojasLoc(t){
+      if(norm(t).includes('localiza')){
+        sys('localização enviada · não fica salva');
+        bot('Achei 3 lojas com gelada perto de você:');
+        card(SHOPS.map(s=>`<div class="shop"><div><b>${esc(s.nome)}</b><div class="muted" style="font-size:13px">${esc(s.tipo)}</div></div><div style="white-space:nowrap">${s.dist}</div></div>`).join(''));
+        ask(['A loja estava sem gelada','Menu']);go('lojasRes');return}
+      return global(t)||steps.menu(t);
+    },
+    lojasRes(t){
+      if(norm(t).includes('sem gelada')){bot('Poxa! Anotei para a equipe falar com o lojista. A próxima mais perto com gelada é o Mercadinho Boa Vista, a 600 m.');ask(['Menu']);go('menu');return}
+      return global(t)||steps.menu(t);
+    },
+    lembretes(t){
+      const n=norm(t);
+      if(n.includes('mudar')||n.includes('ligar')){perguntaFreq();return}
+      if(n.includes('pausar')){const d=new Date();d.setDate(d.getDate()+30);S.u.pausadoAte=d.toISOString();bot(`Pausei seus lembretes até ${ddmm(d)}. Seu padrão fica guardado.`);ask(['Menu']);go('menu');return}
+      if(n.includes('parar')){return parar()}
+      if(n.includes('voltar')&&S.u.ajustado){Object.assign(S.u,S.u.ajustado.antes);S.u.ajustado=null;bot('Voltei para o lembrete anterior.',padraoFrase());ask(['Menu']);go('menu');return}
+      return global(t)||steps.menu(t);
+    },
+    ajuste(t){
+      const n=norm(t);
+      if(n.includes('sim')){const p=S.ctx.proposta;S.u.ajustado={antes:{dia:S.u.dia,freq:S.u.freq}};S.u.dia=p.dia;S.u.freq=p.freq;S.u.recusas=0;
+        bot(`Fechado. Te lembro ${S.u.momento==='Véspera à noite'?'na véspera, às 19h':'no dia, às 7h30'}, toda semana. Se quiser voltar ao anterior, é só ir em Meus lembretes.`)}
+      else {S.u.recusas=S.u.trocas.length;bot('Combinado, mantenho como está.')}
+      ask(['Menu']);go('menu');
+    },
+    avulso(t){
+      if(norm(t)==='sim'){S.u.avulso=S.ctx.avulso;bot(`Combinado. Te mando o SMS ${S.ctx.avulso}.`);ask(['Menu']);go('menu');return}
+      bot('Me diz o dia e a hora que prefere, por exemplo "sexta às 18h".');ask([]);go('avulsoHora');
+    },
+    avulsoHora(t){S.u.avulso=t.trim();bot(`Combinado. Te mando o SMS: ${t.trim()}.`);ask(['Menu']);go('menu')},
+    apagar(t){
+      if(norm(t).includes('apagar')){store.del(KEY);queue=[];S=fresh('SITE');$msgs.innerHTML='';sys('cadastro e histórico removidos');bot('Pronto, apaguei seu cadastro e seu histórico. Se quiser voltar, é só mandar um oi.');ask(['Oi']);go('start');pump();return true}
+      bot('Ok, não apaguei nada.');ask(['Menu']);go('menu');
+    },
+    atendente(t){bot('A equipe já recebeu sua conversa e responde por aqui. Enquanto isso, se precisar, digite MENU.');ask(['Menu']);go('menu')},
+    start(t){iniciar(t)}
+  };
+
+  function perguntaFreq(){bot(`${S.u.nome?S.u.nome+', c':'C'}om que frequência você compra retornável?`);ask(Object.keys(FREQ));go('freq')}
+  function perguntaConsent(){bot(`Posso te mandar esse lembrete por SMS no ${fmtCel(S.u.cel)}? Dá para parar quando quiser respondendo PARAR.`);ask(['Sim','Agora não']);go('consent')}
+  function fimCadastro(){
+    const u=S.u; u.cadastrado=true;
+    if(!u.consent){bot(`Tudo certo, ${u.nome}. Sem lembretes por enquanto. Seu saldo continua funcionando normalmente.`,'Digite MENU para ver tudo que dá para fazer aqui.');ask(['Menu']);go('menu');return}
+    if(u.freq==='Só em ocasiões'){bot(`Fechado, ${u.nome}. Como você compra em ocasiões, me conta quando for comprar, tipo "vou comprar sábado", que eu te lembro por SMS.`,'Digite MENU para ver tudo que dá para fazer aqui.');ask(['Menu']);go('menu');return}
+    const d=descLembrete();
+    bot(`Fechado, ${u.nome}. Te lembro por SMS ${d?'na '+d:'no seu dia'}, ${u.freq.toLowerCase()}.`);
+    smsCard(textoLembrete(),d||'');
+    bot('Digite MENU para ver tudo que dá para fazer aqui.');ask(['Menu']);go('menu');
+  }
+  function registrar(tipo,local,q){S.u.trocas.push({d:new Date().toISOString(),tipo,local,q:q||1})}
+  function creditar(q,local,novo,teto){
+    S.u.saldo+=q; registrar('devolucao',local,q);
+    if(novo){
+      S.u.cadastrado=true; S.ctx.fluxo=null;
+      bot(`Pronto, ${S.u.nome}! Recebemos ${plural(q)} no ${local}. Seu saldo: ${plural(S.u.saldo)}.`);
+      bot('Quer que eu te avise por SMS quando for dia de comprar? São 3 perguntas rápidas.');ask(['Bora','Agora não']);go('oferta');return
+    }
+    bot(`Pronto! ${q===1?'1 garrafa entrou':q+' garrafas entraram'} no seu saldo. Saldo atual: ${plural(S.u.saldo)}.`);
+    // proposta de ajuste: 3 trocas fortes no mesmo dia da semana, diferente do padrão
+    const fortes=S.u.trocas.filter(x=>x.tipo==='devolucao'||x.tipo==='uso');
+    const ult=fortes.slice(-3).map(x=>new Date(x.d).getDay());
+    if(S.u.consent&&S.u.lembretes&&fortes.length>=3&&fortes.length-S.u.recusas>=3&&ult.every(x=>x===ult[0])&&DIAS[ult[0]]!==S.u.dia){
+      const nd=DIAS[ult[0]]; const vesp=DIAS[(ult[0]+6)%7].toLowerCase();
+      S.ctx.proposta={dia:nd,freq:'Toda semana'};
+      bot(`Percebi que você tem trocado ${nd==='Sábado'||nd==='Domingo'?'todo':'toda'} ${nd.toLowerCase()}. Quer que eu te lembre ${S.u.momento==='Véspera à noite'?vesp+' à noite':nd.toLowerCase()+' de manhã'}, toda semana?`);
+      ask(['Sim, ajusta','Manter']);go('ajuste');return
+    }
+    if(!S.u.consent&&S.u.ofertaLembrete<2&&fortes.length>=2&&S.u.cadastrado){
+      S.u.ofertaLembrete=2; bot('Quer que eu te avise por SMS quando for dia de comprar? São 3 perguntas rápidas.');ask(['Bora','Agora não']);go('oferta');return
+    }
+    const d=descLembrete(); if(d) bot(`Seu próximo lembrete: ${d}.`);
+    ask(['Menu']);go('menu');
+  }
+  function devolver(){bot('Onde você está devolvendo?');ask(['Balcão do lojista','Coletor na loja','Máquina']);go('devLocal')}
+  function comprar(){bot('Leva o casco na loja e você paga só o líquido.','Esqueceu o casco? Usa uma garrafa do seu saldo.');ask(['Ver lojas','Usar meu saldo','Menu']);go('menu');S.replies=['Retornável gelada perto de mim','Usar meu saldo','Menu']}
+  function usarSaldo(){
+    if(!S.u.saldo){bot('Você ainda não tem garrafa no saldo. Devolva um casco no balcão, no coletor ou na máquina que ele entra aqui.');ask(['Devolver garrafa vazia','Menu']);go('menu');return}
+    bot('Trouxe o casco hoje?');ask(['Trouxe','Esqueci']);go('usar');
+  }
+  function mostrarCodigo(novo){
+    const c=Array.from({length:5},()=>"ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.floor(Math.random()*32)]).join('');
+    S.ctx.codigo=c;
+    if(novo) bot('Esse código venceu. Gerei outro para você, válido por 2 horas.');
+    else bot(`Você tem ${plural(S.u.saldo)}. Mostra esse código no caixa. Ele vale por 2 horas.`);
+    card(`<div class="k">Código para usar o saldo</div><div class="code">${qrSvg(c)}<div><div class="big">${c}</div><div class="muted" style="font-size:12px;margin-top:6px">válido até ${new Date(Date.now()+72e5).toTimeString().slice(0,5)}</div></div></div>`);
+    ask(['Simular leitura do lojista','O código venceu']);go('confirmaUso');
+  }
+  function qrSvg(seed){ // padrão ilustrativo, não é um QR real
+    let h=0;for(const ch of seed)h=(h*31+ch.charCodeAt(0))>>>0;
+    const n=21,s=3;let r='';const rnd=()=>(h=(h*1103515245+12345)>>>0,h>>>16&1);
+    const fin=(x,y)=>`<rect x="${x*s}" y="${y*s}" width="${7*s}" height="${7*s}" fill="currentColor"/><rect x="${(x+1)*s}" y="${(y+1)*s}" width="${5*s}" height="${5*s}" fill="var(--bg)"/><rect x="${(x+2)*s}" y="${(y+2)*s}" width="${3*s}" height="${3*s}" fill="currentColor"/>`;
+    for(let y=0;y<n;y++)for(let x=0;x<n;x++){if((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>12))continue;if(rnd())r+=`<rect x="${x*s}" y="${y*s}" width="${s}" height="${s}" fill="currentColor"/>`}
+    return `<svg width="${n*s}" height="${n*s}" viewBox="0 0 ${n*s} ${n*s}" aria-label="código QR ilustrativo">${fin(0,0)+fin(14,0)+fin(0,14)+r}</svg>`;
+  }
+  function lojas(){bot('Me manda sua localização que eu te mostro onde tem retornável gelada agora.');ask(['Enviar localização']);go('lojasLoc')}
+  function meusLembretes(){
+    const r=['Mudar lembrete','Pausar por 1 mês','Parar lembretes']; if(S.u.ajustado) r.push('Voltar ao anterior');
+    if(!S.u.consent||!S.u.lembretes){bot(padraoFrase());ask(['Ligar lembretes','Menu']);go('lembretes');return}
+    bot(padraoFrase()); const d=descLembrete(); if(d) bot(`Próximo SMS: ${d}.`);
+    ask(r);go('lembretes');
+  }
+  function atendente(){
+    const h=new Date(),wd=h.getDay(),hr=h.getHours();
+    const dentro=wd>=1&&wd<=5&&hr>=9&&hr<18;
+    bot('Vou te passar para alguém da equipe.',dentro?'Nosso atendimento é de segunda a sexta, das 9h às 18h. Já já alguém responde por aqui.':'Nosso atendimento é de segunda a sexta, das 9h às 18h, então te respondem no próximo horário de atendimento.');
+    ask(['Menu']);go('atendente');
+  }
+  function parar(){S.u.lembretes=false;bot('Pronto, desliguei seus lembretes. Seu saldo continua aqui. Quando quiser voltar, é só digitar LEMBRETE.');ask(['Menu']);go('menu');return true}
+  function naoEntendi(){
+    S.unknown++;
+    if(S.unknown>=2){S.unknown=0;bot('Acho que não estou conseguindo te ajudar. Quer falar com uma pessoa da equipe?');ask(['Falar com uma pessoa','Menu']);go('menu');return}
+    bot('Não entendi bem. Escolhe uma opção aqui:');ask(MENU,true);go('menu');
+  }
+  function global(t){
+    const n=norm(t);
+    if(!S.u.cadastrado) return false;
+    if(n==='menu'||n==='oi'||n==='ola'||n==='voltar'){S.unknown=0;menu();return true}
+    if(n==='saldo'){bot(`Seu saldo: ${plural(S.u.saldo)}.`);ask(['Usar meu saldo','Menu']);go('menu');return true}
+    if(n==='lojas'){lojas();return true}
+    if(n==='lembrete'||n==='lembretes'){if(!S.u.lembretes&&S.u.consent){S.u.lembretes=true;S.u.pausadoAte=null;bot('Lembretes ligados de novo.')}meusLembretes();return true}
+    if(n==='atendente'||n==='falar com uma pessoa'||n==='falar com alguem'){atendente();return true}
+    if(n==='parar'||n==='parar lembretes'){return parar()}
+    if(n==='apagar meus dados'){bot('Isso remove seu cadastro, seu saldo e seu histórico. Tem certeza?');ask(['Apagar tudo','Cancelar']);go('apagar');return true}
+    const m=n.match(/(vou comprar|compro|comprar).*(segunda|terca|quarta|quinta|sexta|sabado|domingo)/);
+    if(m){const di=['domingo','segunda','terca','quarta','quinta','sexta','sabado'].indexOf(m[2]);const v=DIAS[(di+6)%7].toLowerCase();
+      S.ctx.avulso=`${v==='sábado'||v==='domingo'?'no':'na'} ${v} às 19h`;
+      bot(`Quer que eu te lembre ${S.ctx.avulso}?`);ask(['Sim','Outro horário']);go('avulso');return true}
+    return false;
+  }
+  function iniciar(t){
+    const o=S.origem, devol=(o==='COL'||o==='MAQ');
+    if(devol){
+      S.ctx.fluxo='devolucao'; S.ctx.local=ORIGENS[o].onde;
+      if(o==='MAQ'){const q=1+Math.floor(Math.random()*3);S.ctx.qtd=q;sys(`a máquina contou ${q} casco${q>1?'s':''} pelo sensor`);bot(`Oi! A máquina contou ${plural(q)}.`,'Para guardar no seu saldo, qual é o seu nome?');ask([]);go('nome');return}
+      bot('Oi! Quantos cascos você deixou no coletor?');ask(['1','2','Mais']);go('devQtd');return
+    }
+    bot('Oi! Aqui você guarda suas garrafas retornáveis como saldo e pega a gelada quando quiser.','Qual é o seu nome?');ask([]);go('nome');
+  }
+
+  function handle(t){
+    if(S.step==='start'){iniciar(t);return}
+    const cadastro=['nome','cel','cpf','freq','dia','momento','consent','devQtd'].includes(S.step)&&!S.u.cadastrado;
+    if(!cadastro && !['apagar','avulsoHora'].includes(S.step) && global(t)) return;
+    (steps[S.step]||steps.menu)(t);
+  }
+  function send(t){
+    t=String(t).trim(); if(!t||busy&&queue.length>4) return;
+    S.replies=[];S.listMode=false;$rep.innerHTML='';
+    queue.push({t:'me',x:t}); handle(t); pump();
+  }
+
+  /* ---- painel lateral ---- */
+  function renderState(){
+    const u=S.u,box=document.getElementById('stateBox');
+    const rows=[['Origem do acesso',S.origem],['Nome',u.nome||'—'],['Celular',u.cel?fmtCel(u.cel):'—'],['CPF',u.cpf||(u.cel?'não informado':'—')],['Saldo',plural(u.saldo)],['Frequência',u.freq||'—'],['Dia',u.dia||'—'],['Momento',u.momento||'—'],['Consentimento SMS',u.consent?new Date(u.consent).toLocaleDateString('pt-BR'):'não'],['Lembretes',u.lembretes&&u.consent?(u.pausadoAte?'pausados':'ligados'):'desligados'],['Próximo SMS',descLembrete()||'—'],['Trocas registradas',u.trocas.length]];
+    box.innerHTML=rows.map(r=>`<div class="state-row"><span class="muted">${r[0]}</span><span>${esc(r[1])}</span></div>`).join('');
+  }
+  function simular(tipo){
+    const u=S.u,box=document.getElementById('smsBox');
+    if(!u.cadastrado){box.innerHTML='<div class="muted" style="font-size:13px">Faça o cadastro no chat primeiro.</div>';return}
+    const add=(txt,hora)=>{const d=document.createElement('div');d.className='notif';d.innerHTML=`<div class="from"><span>SMS · ${esc(fmtCel(u.cel))}</span><span>${hora}</span></div>${esc(txt)}`;box.prepend(d)};
+    if(tipo==='lembrete'){if(!u.consent||!u.lembretes){add('(Nenhum SMS: lembretes desligados para este número.)','—');return}add(textoLembrete(),u.momento==='Véspera à noite'?'19:00':'07:30')}
+    if(tipo==='checkin'){if(!u.consent||!u.lembretes){add('(Nenhum SMS: lembretes desligados para este número.)','—');return}add(`Oi, ${u.nome}. Não vi troca sua essa semana. Conseguiu comprar? Responda 1 se comprou, 2 se não, ou PAUSAR. Ou abra retornavel.app/c`,'10:00')}
+    if(tipo==='pausa'){add(`Parei seus lembretes por enquanto, ${u.nome}. Seu saldo continua guardado. Para voltar, abra retornavel.app/c e digite LEMBRETE.`,'10:00')}
+    if(tipo==='lojista'){queue.push({t:'sys',x:'o lojista registrou 1 casco no balcão'});S.replies=[];creditar(1,'balcão do Mercadinho Boa Vista');pump()}
+  }
+  document.querySelectorAll('[data-sim]').forEach(b=>b.onclick=()=>simular(b.dataset.sim));
+  document.getElementById('toggleSide').onclick=()=>{const s=document.getElementById('side');s.classList.toggle('open');if(s.classList.contains('open'))s.scrollIntoView({behavior:'smooth'})};
+  document.getElementById('kw').addEventListener('click',e=>{if(e.target.tagName==='CODE')send(e.target.textContent)});
+  document.getElementById('composer').addEventListener('submit',e=>{e.preventDefault();const v=$in.value;$in.value='';send(v)});
+  document.getElementById('resetChat').onclick=()=>{store.del(KEY);queue=[];busy=false;$msgs.innerHTML='';started=false;S=null;open(true)};
+
+  function open(force){
+    if(started&&!force){$in.focus({preventScroll:true});return}
+    started=true;
+    const saved=store.get(KEY);
+    const origem=ORIGENS[origemURL]?origemURL:null;
+    if(saved&&!force&&(!origem||saved.origem===origem||saved.u.cadastrado)){
+      S=saved; $msgs.innerHTML=''; S.log.forEach(render); renderReplies(); renderState();
+      if(origem&&S.u.cadastrado&&(origem==='COL'||origem==='MAQ')&&!S.ctx.reentrou){S.ctx.reentrou=origem;queue.push({t:'me',x:ORIGENS[origem].txt});if(origem==='COL'){S.ctx.local=ORIGENS.COL.onde;bot(`Oi, ${S.u.nome}! Quantos cascos você deixou no coletor?`);ask(['1','2','Mais']);go('devQtd')}else{steps.devLocal('maquina')}pump()}
+      return;
+    }
+    S=fresh(origem||'SITE'); $msgs.innerHTML='';
+    sys(origem?`QR Code lido: ${ORIGENS[origem].onde}`:'Retornável Chat');
+    queue.push({t:'me',x:ORIGENS[S.origem].txt}); handle(ORIGENS[S.origem].txt); pump();
+  }
+  return{open};
+})();
+
+route();
+</script>
+</body>
+</html>

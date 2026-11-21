@@ -1,0 +1,152 @@
+/* ---------- iPhone (moldura de titânio, Dynamic Island) ---------- */
+.iphone { justify-self: center; position: relative; width: min(320px, 100%); aspect-ratio: 393 / 852; border-radius: 54px; padding: 11px;
+  background: linear-gradient(145deg, #d9d4cc 0%, #8e8a84 18%, #3c3b39 50%, #8e8a84 82%, #d9d4cc 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.35), 0 40px 80px -40px rgba(0,0,0,.55); }
+.iphone::before { content: ""; position: absolute; inset: 3px; border-radius: 51px; background: #050505; }
+.iphone::after { content: ""; position: absolute; left: -3px; top: 21%; width: 3px; height: 9%; border-radius: 2px 0 0 2px; background: #6d6a66; box-shadow: 0 70px 0 #6d6a66, 0 130px 0 #6d6a66; }
+.iphone__screen { position: relative; z-index: 1; height: 100%; border-radius: 44px; overflow: hidden; background: #000; container-type: inline-size; }
+.iphone__screen::after { content: ""; position: absolute; top: 2.6%; left: 50%; width: 32%; height: 4.1%; transform: translateX(-50%); background: #000; border-radius: 20px; z-index: 5; }
+.iphone__screen--app { background: #F2F2F7; }
+
+/* Tela de bloqueio do iOS */
+.ios { position: absolute; inset: 0; color: #fff; font-family: -apple-system, "SF Pro Display", "Segoe UI", system-ui, sans-serif; }
+.ios__wall { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ios__status { position: absolute; top: 3.2%; left: 8%; right: 7%; display: flex; justify-content: space-between; align-items: center; font-size: 4.4cqw; font-weight: 600; z-index: 6; }
+.ios__icons { display: flex; align-items: center; gap: 1.6cqw; }
+.ios__icons svg { fill: #fff; height: 3.4cqw; width: auto; }
+.ios__batt { width: 7.4cqw; height: 3.6cqw; border: 1.2px solid rgba(255,255,255,.55); border-radius: 1.2cqw; padding: .5cqw; position: relative; }
+.ios__batt::after { content: ""; position: absolute; right: -1.4cqw; top: 30%; width: .9cqw; height: 40%; background: rgba(255,255,255,.55); border-radius: 0 1px 1px 0; }
+.ios__batt i { display: block; height: 100%; width: 78%; background: #fff; border-radius: .6cqw; }
+.ios__lock { position: absolute; top: 9.6%; left: 50%; transform: translateX(-50%); width: 4.2cqw; height: auto; }
+.ios__date { position: absolute; top: 14.2%; left: 0; right: 0; text-align: center; margin: 0; font-size: 5.2cqw; font-weight: 600; opacity: .9; }
+.ios__clock { position: absolute; top: 17.4%; left: 0; right: 0; text-align: center; margin: 0; font-size: 24.5cqw; font-weight: 700; letter-spacing: -0.04em; line-height: 1; text-shadow: 0 1px 20px rgba(0,0,0,.12); }
+.ios__notif { position: absolute; left: 3.6%; right: 3.6%; top: 46%; display: flex; gap: 3cqw; padding: 3.4cqw 3.8cqw; border-radius: 6.4cqw; color: #111;
+  background: rgba(250,245,245,.72); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); box-shadow: 0 1px 0 rgba(255,255,255,.4) inset; }
+.ios__app { flex: none; width: 10.4cqw; height: 10.4cqw; border-radius: 2.6cqw; background: linear-gradient(180deg, #67F07F 0%, #10C232 100%); display: grid; place-items: center; }
+.ios__app svg { width: 70%; height: 70%; }
+.ios__body { min-width: 0; flex: 1; }
+.ios__top { display: flex; justify-content: space-between; align-items: baseline; font-size: 4cqw; }
+.ios__top b { font-family: inherit; font-weight: 600; }
+.ios__top time { color: rgba(60,60,67,.6); font-size: 3.6cqw; }
+.ios__body p { margin: .4cqw 0 0; font-size: 4cqw; line-height: 1.3; }
+.ios__dock { position: absolute; left: 12%; right: 12%; bottom: 7%; display: flex; justify-content: space-between; }
+.ios__round { width: 13cqw; height: 13cqw; border-radius: 50%; background: rgba(0,0,0,.28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); display: grid; place-items: center; }
+.ios__round svg { width: 45%; height: auto; }
+.ios__home { position: absolute; bottom: 1.6%; left: 50%; width: 36%; height: 1.3cqw; margin-left: -18%; background: #fff; border-radius: 4px; }
+
+/* telas de chat dentro do iPhone (Como funciona) */
+.scr__bar { background: #000; color: #fff; padding: 16% 6cqw 4cqw; font: 700 4.4cqw var(--head); border-bottom: 0; }
+.scr__msgs { padding: 4cqw 3.6cqw; gap: 2.4cqw; }
+.scr .b { background: #F4F6FB; border-radius: 4.6cqw; font-size: 3.9cqw; padding: 3cqw 3.6cqw; max-width: 88%; }
+.scr .b--me { background: #000; color: #fff; }
+.scr .chips span { background: #fff; font-size: 3.2cqw; padding: 1.8cqw 3cqw; }
+.scr__code { border-radius: 4.6cqw; }
+
+/* ---------- Chat flutuante (inspirado em chats de atendimento de grandes marcas) ---------- */
+.sheet--chat { background: transparent; pointer-events: none; align-items: flex-end; justify-content: flex-end; padding: 24px; }
+.sheet--chat .sheet__panel { pointer-events: auto; }
+.sheet__panel.chat { width: 420px; height: min(720px, calc(100vh - 48px)); border-radius: 28px; overflow: hidden; background: #fff; box-shadow: 0 24px 70px -20px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.06); animation: chatIn .35s var(--ease); position: relative; }
+@keyframes chatIn { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+.chat__head { display: flex; align-items: center; gap: 4px; padding: 18px 14px 18px 24px; background: #000; color: #fff; border: 0; }
+.chat__head h2 { flex: 1; font-size: 17px; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+.chat__icon { width: 40px; height: 40px; border: 0; background: transparent; color: #fff; border-radius: 50%; cursor: pointer; display: grid; place-items: center; }
+.chat__icon:hover { background: rgba(255,255,255,.14); }
+.chat__menu { position: absolute; top: 74px; right: 14px; z-index: 5; width: 280px; background: #fff; border-radius: 18px; box-shadow: 0 18px 50px -16px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.06); padding: 8px; max-height: calc(100% - 100px); overflow-y: auto; }
+.chat__menu[hidden] { display: none; }
+.chat__menu-item { width: 100%; text-align: left; border: 0; background: transparent; padding: 10px 12px; border-radius: 12px; cursor: pointer; display: grid; gap: 1px; color: var(--ink); }
+.chat__menu-item:hover { background: #F4F6FB; }
+.chat__menu-item b { font-size: 14px; }
+.chat__menu-item span { font-size: 12px; color: var(--muted); }
+.chat__menu-h { margin: 8px 12px 2px; font: 700 11px var(--head); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.chat__demo { border-top: 1px solid var(--line); margin-top: 6px; padding: 10px 12px 4px; }
+.chat__demo summary { cursor: pointer; font: 700 13px var(--head); color: var(--muted); }
+.chat__demo-btns { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+#chat-sms { display: grid; gap: 8px; }
+.chat__msgs { flex: 1; overflow-y: auto; padding: 20px 18px 12px; display: flex; flex-direction: column; gap: 8px; background: #fff; }
+.chat__who { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font: 700 13px var(--head); color: var(--ink); }
+.chat__who time { font: 400 12px var(--font); color: var(--muted); }
+.chat__who-ico { width: 22px; height: 22px; border-radius: 50%; background: var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M13.5 5h5v3.4c0 1 .6 1.8 1.4 2.7 1 1.2 1.7 2.5 1.7 4.5V25a2 2 0 0 1-2 2h-7.2a2 2 0 0 1-2-2v-9.4c0-2 .7-3.3 1.7-4.5.8-.9 1.4-1.7 1.4-2.7z' fill='%23fff'/%3E%3C/svg%3E") center / 60% no-repeat; }
+.bub { max-width: 86%; padding: 12px 16px; border-radius: 20px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15px; line-height: 1.45; animation: pop .2s var(--ease); }
+.bub--bot { align-self: flex-start; background: #F4F6FB; color: var(--ink); border-radius: 4px 20px 20px 20px; }
+.bub--bot + .bub--bot { border-radius: 20px; }
+.bub--me { align-self: flex-end; background: #000; color: #fff; border-radius: 20px 20px 4px 20px; margin-top: 8px; }
+.bub--sys { align-self: center; font-size: 12px; color: var(--muted); padding: 4px 10px; background: #F4F6FB; border-radius: var(--pill); }
+.typing { align-self: flex-start; background: #F4F6FB; border-radius: 20px; padding: 14px 16px; display: flex; gap: 5px; }
+.cardmsg { align-self: flex-start; max-width: 90%; background: #F4F6FB; border-radius: 20px; padding: 16px; font-size: 14px; animation: pop .2s var(--ease); }
+.cardmsg__k { font: 700 13px var(--head); color: var(--ink); margin-bottom: 8px; }
+.cardmsg .sms-preview { background: #fff; border-radius: 14px; }
+.cardmsg__code { display: flex; gap: 14px; align-items: center; background: #fff; border-radius: 14px; padding: 12px; }
+.cardmsg__code strong { font-size: 26px; letter-spacing: .12em; display: block; }
+.cardmsg__shop { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E3E6EF; }
+.cardmsg__shop:last-child { border-bottom: 0; }
+.cardmsg__shop small { display: block; color: var(--muted); }
+/* carrossel de cartões */
+.carousel { align-self: stretch; margin: 2px -18px 0 0; animation: pop .25s var(--ease); }
+.carousel__track { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-right: 18px; scrollbar-width: none; }
+.carousel__track::-webkit-scrollbar { display: none; }
+.ccard { flex: 0 0 78%; scroll-snap-align: start; background: #F4F6FB; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+.ccard img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.ccard__body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.ccard h4 { font-size: 15px; }
+.ccard p { margin: 0 0 8px; font-size: 13.5px; color: #3e4048; line-height: 1.45; flex: 1; }
+.ccard__btn { border: 1.5px solid #000; background: #fff; color: #000; border-radius: var(--pill); padding: 11px; font: 700 14px var(--head); cursor: pointer; }
+.ccard__btn:hover { background: #000; color: #fff; }
+.carousel__nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 8px; padding-right: 18px; }
+.carousel__btn { width: 28px; height: 28px; border-radius: 6px; border: 0; background: #E9ECF3; color: #000; font-size: 20px; line-height: 1; cursor: pointer; }
+.carousel__btn:hover { background: #000; color: #fff; }
+.carousel__dots { display: flex; gap: 5px; }
+.carousel__dots i { width: 6px; height: 6px; border-radius: 50%; background: #C6CAD4; }
+.carousel__dots i.on { background: #000; }
+/* respostas rápidas */
+.chat__replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 18px; background: #fff; border-top: 1px solid #EEF0F5; }
+.chat__replies:empty { display: none; }
+.chat__replies button { border: 1.5px solid #000; background: #fff; color: #000; border-radius: var(--pill); padding: 10px 18px; font: 700 14px var(--head); cursor: pointer; }
+.chat__replies button:hover { background: #000; color: #fff; }
+.chat__replies.is-list { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 8px; max-height: 42%; overflow-y: auto; background: #F4F6FB; margin: 0 14px 10px; border-radius: 20px; border: 0; padding: 14px; }
+.chat__replies.is-list button { width: 100%; padding: 12px; text-align: center; }
+.chat__replies-h { margin: 0 0 2px; font: 700 14px var(--head); color: var(--ink); }
+.chat__composer { display: flex; gap: 8px; align-items: center; padding: 12px 14px 16px; background: #fff; border-top: 1px solid #EEF0F5; }
+.chat__composer input { flex: 1; min-width: 0; font: 400 15px var(--font); padding: 13px 18px; border-radius: var(--pill); border: 0; background: #F4F6FB; color: var(--ink); }
+.chat__composer input:focus { outline: 2px solid #000; outline-offset: 0; }
+.chat__composer button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #000; color: #fff; display: grid; place-items: center; cursor: pointer; flex: none; }
+.chat__composer button:hover { background: var(--red); }
+/* botão flutuante */
+.chat-launch { position: fixed; right: 24px; bottom: 24px; z-index: 60; display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px 14px 18px; border: 0; border-radius: var(--pill); background: #000; color: #fff; font: 700 15px var(--head); cursor: pointer; box-shadow: 0 14px 34px -12px rgba(0,0,0,.5); transition: transform .2s var(--ease), background .2s; }
+.chat-launch:hover { background: var(--red); transform: translateY(-2px); }
+body.chat-open .chat-launch { opacity: 0; pointer-events: none; }
+
+/* ---------- Painel de lojas (localizador) ---------- */
+.finder { top: 24px; bottom: 24px; width: min(400px, calc(100% - 48px)); padding: 0; border-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.finder__head { padding: 24px 24px 16px; }
+.finder__head .crumb { margin-bottom: 10px; }
+.finder h1 { font-size: 26px; margin: 0; letter-spacing: -0.02em; }
+.finder__search { padding: 0 24px 16px; display: grid; gap: 10px; }
+.search { display: flex; align-items: center; gap: 10px; border: 1px solid #BDBDC2; padding: 0 14px; height: 46px; color: var(--muted); }
+.search:focus-within { border-color: #000; color: #000; }
+.search input { flex: 1; min-width: 0; border: 0; outline: 0; font: 400 15px var(--font); background: transparent; color: var(--ink); height: 100%; }
+.locate { justify-self: start; display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 4px 0; font: 700 14px var(--head); color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.filters { display: flex; gap: 0; margin: 0; padding: 0 24px; border-bottom: 1px solid var(--line); flex-wrap: nowrap; overflow-x: auto; }
+.filter { border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; padding: 10px 0; margin-right: 20px; margin-bottom: -1px; font: 700 13px var(--head); color: var(--muted); white-space: nowrap; }
+.filter.is-on { background: none; color: #000; border-bottom-color: #000; }
+.finder__status { padding: 0 24px; margin: 10px 0 0; font-size: 13px; }
+.finder__status:empty { display: none; }
+.stores { padding: 0 24px; flex: 1; }
+.store { padding: 16px 0; grid-template-columns: 22px 1fr auto; gap: 2px 12px; border-top: 0; border-bottom: 1px solid var(--line); }
+.store:hover, .store.is-sel { background: none; }
+.store.is-sel h3 { text-decoration: underline; text-underline-offset: 4px; }
+.store__n { width: auto; height: auto; border-radius: 0; background: none !important; color: var(--muted); font: 700 13px var(--head); padding-top: 2px; }
+.store h3 { font-size: 15px; }
+.store p { font-size: 13px; }
+.store__km { font: 400 13px var(--font); color: var(--muted); }
+.store__state { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; }
+.store__state::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.finder__foot { padding: 14px 24px 20px; margin: 0; font-size: 12px; color: var(--muted); }
+.pin__body { fill: var(--red-600); stroke-width: 2; }
+.pin text { font-size: 12px; }
+.map__legend { border-radius: 0; font-size: 12px; }
+.map__pop { border-radius: 0; box-shadow: 0 8px 24px -10px rgba(0,0,0,.35); }
+
+/* ---------- Lojistas ---------- */
+.features__note { margin: 40px 0 0; color: var(--muted); }
+.photo-band { margin: 0; }
+.photo-band img { width: 100%; height: min(70vh, 640px); object-fit: cover; }

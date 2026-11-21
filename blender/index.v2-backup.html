@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retornável · Troca Fácil</title>
+<meta name="description" content="Devolva o casco, guarde a garrafa virtual e retire a gelada quando e onde quiser.">
+<meta name="theme-color" content="#F40009">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="disclaimer" role="note"><strong>Não é um site oficial da Coca-Cola.</strong> Protótipo acadêmico do Field Project FGV EBAPE. Nenhum dado sai do seu navegador.</div>
+
+<header class="topbar" id="topo">
+  <div class="wrap topbar__in">
+    <a href="#/inicio" class="brand" aria-label="Retornável, início">
+      <span class="brand__script">Coca-Cola</span>
+      <span class="brand__word">Retornável</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#/inicio" data-route="inicio">Início</a>
+      <a href="#/como-funciona" data-route="como-funciona">Como funciona</a>
+      <a href="#/lojas" data-route="lojas">Lojas</a>
+      <a href="#/lojistas" data-route="lojistas">Para lojistas</a>
+      <a href="#/duvidas" data-route="duvidas">Dúvidas</a>
+      <a href="#/chat" class="nav__chat">Retornável Chat</a>
+    </nav>
+    <button class="btn btn--dark btn--sm" data-open="conta">Entrar</button>
+  </div>
+</header>
+
+<main id="conteudo">
+<div class="page" id="p-inicio" data-page="inicio">
+  <!-- Hero + Como funciona: a garrafa fica fixa ao lado e gira com a rolagem -->
+  <div class="story">
+    <div class="story__stage" aria-hidden="true">
+      <canvas id="bottle"></canvas>
+    </div>
+
+    <section class="hero">
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <p class="eyebrow eyebrow--light">Troca Fácil · Garrafa retornável</p>
+          <h1>Devolve o casco.<br>A gelada fica guardada.</h1>
+          <p class="lead">Deixe o vazio na loja, no coletor ou na máquina quando sair de casa. Na volta, retire a sua Coca-Cola gelada no mesmo ponto ou em outro, pagando só o líquido.</p>
+          <div class="actions">
+            <button class="btn btn--light" data-open="chat">Começar no chat</button>
+            <a class="btn btn--ghost-light" href="#/lojas">Achar gelada perto</a>
+          </div>
+          <p class="hero__note">Escaneou o QR da garrafa? O chat já abre sozinho. Sem app e sem WhatsApp.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps" id="como">
+      <div class="wrap">
+        <div class="steps__list">
+          <p class="eyebrow">Como funciona</p>
+          <h2 class="reveal">Três passos, do vazio à gelada.</h2>
+          <ol class="step-items">
+            <li class="step reveal">
+              <span class="step__n">1</span>
+              <div>
+                <h3>Devolva o casco</h3>
+                <p>No balcão, no coletor da loja ou na máquina de devolução. Escaneie o QR e o Retornável Chat abre na hora, sem cadastro antes.</p>
+              </div>
+            </li>
+            <li class="step reveal">
+              <span class="step__n">2</span>
+              <div>
+                <h3>Vira garrafa virtual</h3>
+                <p>Cada casco entra no seu saldo na hora. É um valor seu que fica guardado, como uma caução.</p>
+              </div>
+            </li>
+            <li class="step reveal">
+              <span class="step__n">3</span>
+              <div>
+                <h3>Retire a gelada</h3>
+                <p>Mostre o código no caixa de qualquer loja parceira. Você paga só o líquido, e o lojista confirma junto com você.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+  <section class="band" id="saldo">
+    <div class="wrap band__in">
+      <div class="reveal">
+        <p class="eyebrow">Sua garrafa virtual</p>
+        <h2>O saldo vai com você.</h2>
+        <p class="muted">Devolveu no Prezunic de manhã, retira no mercadinho perto de casa à noite. O código vale por 2 horas e só fecha a troca quando você e a loja confirmam.</p>
+        <button class="btn btn--dark" data-open="conta">Abrir minha carteira</button>
+      </div>
+      <div class="wallet-card reveal" aria-label="Exemplo de carteira">
+        <div class="wallet-card__top">
+          <span>Saldo de Ana</span>
+          <span class="chip chip--red">Exemplo</span>
+        </div>
+        <p class="wallet-card__num"><strong>2</strong> garrafas</p>
+        <p class="wallet-card__meta">Próximo lembrete: terça, 19h</p>
+        <div class="wallet-card__row">
+          <span>Última troca</span><span>Mercearia do Seu Zé · qua 21/10</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="next" aria-label="Próxima página">
+    <div class="wrap next__in">
+      <span class="muted small">Próxima página</span>
+      <a class="next__link" href="#/como-funciona">Como funciona <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+</div>
+
+<div class="page" id="p-como-funciona" data-page="como-funciona" hidden>
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">Como funciona</p>
+      <h1>Do QR ao SMS, sem app e sem WhatsApp.</h1>
+      <p class="lead">Você conversa com a gente no site e recebe só o lembrete por SMS, no dia que escolheu.</p>
+    </div>
+  </header>
+  <section class="section" id="fluxo">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Do QR ao SMS</p>
+        <h2>A conversa acontece no site. O lembrete chega por SMS.</h2>
+        <p class="muted">Tudo que antes era conversa no WhatsApp agora fica no Retornável Chat, que abre quando você escaneia o QR. O SMS só entra para lembrar, porque chega em qualquer celular.</p>
+      </div>
+      <ol class="flow reveal">
+        <li><span class="step__n">1</span><div><h3>Escaneia o QR</h3><p>No rótulo, na gôndola, no caixa, no coletor ou na máquina. O chat abre no navegador, já com a mensagem pronta.</p></div></li>
+        <li><span class="step__n">2</span><div><h3>Cadastro em 30 segundos</h3><p>Nome, celular e, se quiser, CPF. Depois três perguntas: com que frequência compra, em que dia e quando prefere o aviso.</p></div></li>
+        <li><span class="step__n">3</span><div><h3>Devolve e guarda saldo</h3><p>Cada casco vira uma garrafa virtual. Para usar, o chat gera um código que vale 2 horas no caixa.</p></div></li>
+        <li><span class="step__n">4</span><div><h3>Recebe o SMS no seu dia</h3><p>Um lembrete por ciclo de compra. Trocou antes? O aviso daquele ciclo é cancelado.</p></div></li>
+      </ol>
+      <div class="table-wrap reveal">
+        <table class="where">
+          <thead><tr><th>O que você quer fazer</th><th>Onde acontece</th></tr></thead>
+          <tbody>
+            <tr><td>Cadastro, saldo, código para usar o saldo</td><td><span class="chip chip--red">Chat</span></td></tr>
+            <tr><td>Achar retornável gelada perto</td><td><span class="chip chip--red">Chat</span> ou página Lojas</td></tr>
+            <tr><td>Mudar, pausar ou parar lembretes</td><td><span class="chip chip--red">Chat</span> ou responder PARAR no SMS</td></tr>
+            <tr><td>Lembrete na véspera (19h) ou no dia (7h30)</td><td><span class="chip chip--grey">SMS</span></td></tr>
+            <tr><td>Check-in quando passou do dia sem troca</td><td><span class="chip chip--grey">SMS</span> com link para o chat</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn btn--dark" data-open="chat">Abrir o Retornável Chat</button>
+    </div>
+  </section>
+  <section class="section section--grey" id="lembretes">
+    <div class="wrap split">
+      <div class="reveal">
+        <p class="eyebrow">Lembretes</p>
+        <h2>Um SMS útil por ciclo. Nada de propaganda.</h2>
+        <p class="muted">Você conta no chat quando costuma comprar e escolhe a hora do aviso. O lembrete chega por SMS, então funciona em qualquer celular, até sem pacote de dados. Se a sua rotina mudar, a gente percebe depois de três trocas e pergunta antes de ajustar.</p>
+        <div class="sms-preview" aria-label="Exemplo de SMS">
+          <div class="sms-preview__from"><span>SMS · Retornável</span><span>seg 19:00</span></div>
+          Amanhã é seu dia de compra, Ana. Seu saldo: 2 garrafas. Deixa o casco perto da porta. Lojas com gelada: retornavel.app/l
+        </div>
+        <button class="btn btn--dark" data-open="chat">Configurar no chat</button>
+      </div>
+      <ul class="rules reveal">
+        <li><strong>Véspera, 19h</strong><span>Para quem compra para casa em dia certo.</span></li>
+        <li><strong>No dia, 7h30</strong><span>Para quem leva o casco no caminho e retira na volta.</span></li>
+        <li><strong>Nunca entre 21h e 7h</strong><span>E se você já trocou, o aviso daquele ciclo é cancelado.</span></li>
+        <li><strong>Desligue quando quiser</strong><span>Responda PARAR no SMS ou no chat. O saldo continua lá.</span></li>
+      </ul>
+    </div>
+  </section>
+  <section class="section" id="privacidade">
+    <div class="wrap split">
+      <div class="reveal">
+        <p class="eyebrow">Privacidade e segurança</p>
+        <h2>Só o necessário, e você no controle.</h2>
+      </div>
+      <dl class="facts reveal">
+        <div><dt>Entrar sem senha</dt><dd>O chat te reconhece pelo celular. Na conta, código por SMS no primeiro acesso.</dd></div>
+        <div><dt>Dados mínimos</dt><dd>Nome, celular, rotina de compra e histórico de trocas. CPF só se você quiser. Nada de endereço.</dd></div>
+        <div><dt>Troca confirmada pelos dois</dt><dd>O código é de uso único e vale 2 horas. Venceu, gera outro sem perder saldo.</dd></div>
+        <div><dt>Apagar meus dados</dt><dd>Um botão na sua conta remove cadastro e histórico.</dd></div>
+      </dl>
+    </div>
+  </section>
+  <nav class="next" aria-label="Próxima página">
+    <div class="wrap next__in">
+      <span class="muted small">Próxima página</span>
+      <a class="next__link" href="#/lojas">Lojas e pontos de devolução <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+</div>
+
+<div class="page" id="p-lojas" data-page="lojas" hidden>
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">Lojas</p>
+      <h1>Devolva num lugar. Retire em outro.</h1>
+      <p class="lead">Balcão, coletor ou máquina. O saldo vai com você para qualquer loja parceira.</p>
+    </div>
+  </header>
+  <section class="section" id="lojas">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Lojas perto</p>
+        <h2>Só aparece quem tem gelada hoje.</h2>
+        <p class="muted">Sua localização é usada só nesta busca e não fica salva.</p>
+      </div>
+      <div class="finder reveal">
+        <div class="finder__bar">
+          <button class="btn btn--dark" id="btn-locate">Usar minha localização</button>
+          <label class="field field--inline">
+            <span class="sr">Ou digite um bairro</span>
+            <input id="bairro" type="text" placeholder="Ou digite um bairro" autocomplete="address-level3">
+          </label>
+        </div>
+        <p class="finder__status" id="finder-status" role="status"></p>
+        <ul class="stores" id="stores"></ul>
+      </div>
+    </div>
+  </section>
+  <section class="section section--grey" id="pontos">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow">Onde devolver</p>
+        <h2>Três jeitos de devolver o casco.</h2>
+      </div>
+      <div class="points">
+        <article class="point reveal"><span class="chip chip--ok">Já existe</span><h3>Balcão do lojista</h3><p>Entregue o casco e fale seu celular. O lojista registra e vê seu saldo na hora.</p></article>
+        <article class="point reveal"><span class="chip chip--red">Novo</span><h3>Coletor na loja</h3><p>Deixe o casco e escaneie o QR do coletor. O saldo cai na hora, até 6 garrafas por dia por número.</p></article>
+        <article class="point reveal"><span class="chip chip--grey">Piloto</span><h3>Máquina de devolução</h3><p>Digite seu celular, a máquina conta os cascos pelo sensor e credita o saldo.</p></article>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="where">
+          <thead><tr><th>Quando</th><th>Onde</th><th>O que acontece</th></tr></thead>
+          <tbody>
+            <tr><td>7h50, saindo de casa</td><td>Máquina do Prezunic</td><td>O saldo cai na hora: 1 garrafa</td></tr>
+            <tr><td>12h30, almoço</td><td>Mercadinho perto do trabalho</td><td>Gera o código no chat e retira a gelada pagando só o líquido</td></tr>
+            <tr><td>Sexta</td><td>Mercadinho</td><td>O lojista usa o vale para fechar a caixa de 12 com o distribuidor</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <nav class="next" aria-label="Próxima página">
+    <div class="wrap next__in">
+      <span class="muted small">Próxima página</span>
+      <a class="next__link" href="#/lojistas">Para lojistas <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+</div>
+
+<div class="page" id="p-lojistas" data-page="lojistas" hidden>
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">Para lojistas</p>
+      <h1>Menos casco perdido, menos conta no fim da semana.</h1>
+      <p class="lead">O caminhão chega cerca de 48 horas depois do pedido e a caixa é fechada de 12. O painel mostra a falta de casco durante a semana, não só no dia da entrega.</p>
+    </div>
+  </header>
+  <section class="section section--dark" id="lojista">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <p class="eyebrow eyebrow--light">Para lojistas</p>
+        <h2>Menos casco perdido. Menos conta no fim da semana.</h2>
+        <p class="muted-light">Adesão pelo vendedor do distribuidor. Entra com o celular da loja, sem instalar nada.</p>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <h3>Ler o vale</h3>
+          <p>Câmera do celular lê o código do cliente. O vale conta como casco na troca de caixas de 12.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Registrar vasilhames</h3>
+          <p>Recebeu vazios ou entregou caixas? Um toque e o saldo da loja fica certo durante a semana.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Tem gelada / Acabou</h3>
+          <p>Um interruptor. A loja só aparece na busca quando tem retornável gelada.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Pedir recolhimento</h3>
+          <p>Os vazios começaram a ocupar espaço? Chame o distribuidor sem esperar a próxima visita.</p>
+        </article>
+      </div>
+      <button class="btn btn--light" data-open="lojista">Entrar na área do lojista</button>
+    </div>
+  </section>
+  <nav class="next" aria-label="Próxima página">
+    <div class="wrap next__in">
+      <span class="muted small">Próxima página</span>
+      <a class="next__link" href="#/duvidas">Dúvidas <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+</div>
+
+<div class="page" id="p-duvidas" data-page="duvidas" hidden>
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">Dúvidas</p>
+      <h1>Perguntas frequentes.</h1>
+      <p class="lead">Não achou sua resposta? Fale com a gente pelo Retornável Chat.</p>
+    </div>
+  </header>
+  <section class="section section--grey" id="duvidas">
+    <div class="wrap narrow">
+      <p class="eyebrow reveal">Dúvidas</p>
+      <h2 class="reveal">Perguntas frequentes</h2>
+      <div class="faq reveal">
+        <details><summary>Esqueci o casco. E agora?</summary><p>Se você tem saldo, usa o saldo. Se não tem, a gente pode passar seu lembrete para a manhã do dia, que é quando o casco costuma ficar para trás.</p></details>
+        <details><summary>A retornável fica mais barata?</summary><p>Você paga só o líquido quando devolve o casco. O casco é um valor seu que fica guardado, não um desconto.</p></details>
+        <details><summary>Quantas garrafas posso devolver no coletor?</summary><p>Até 6 por dia por número. O resto pode ser registrado no dia seguinte.</p></details>
+        <details><summary>A máquina não aceitou meu casco.</summary><p>Ela devolve o casco sem quebrar. Toque em Lojas perto e veja o balcão mais próximo.</p></details>
+        <details><summary>Preciso de WhatsApp ou de aplicativo?</summary><p>Não. O QR abre o Retornável Chat no navegador do celular, e os lembretes chegam por SMS, que funciona em qualquer aparelho.</p></details>
+        <details><summary>Preciso informar o CPF?</summary><p>Não. Quem identifica você é o número de celular. O CPF é opcional, para quem já usa o Troca Fácil com ele.</p></details>
+        <details><summary>Troquei de número.</summary><p>Fale com o atendimento. A equipe confere e passa saldo e histórico para o número novo.</p></details>
+      </div>
+    </div>
+  </section>
+  <nav class="next" aria-label="Próxima página">
+    <div class="wrap next__in">
+      <span class="muted small">Próxima página</span>
+      <a class="next__link" href="#/inicio">Voltar ao início <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </nav>
+</div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div class="brand brand--footer">
+      <span class="brand__script">Coca-Cola</span>
+      <span class="brand__word">Retornável</span>
+    </div>
+    <p class="footer__note">Protótipo do Field Project FGV EBAPE. Dados de exemplo. Logotipo montado com fonte de script; trocar pelo arquivo oficial da marca antes de divulgar.</p>
+    <p class="footer__links"><a href="#/como-funciona">Privacidade</a><a href="#/duvidas">Dúvidas</a><a href="#" data-open="chat">Retornável Chat</a><a href="#" data-open="conta" data-tab="ajuda">Falar com uma pessoa</a></p>
+  </div>
+</footer>
+
+<!-- Conta do consumidor -->
+<div class="sheet" id="sheet-conta" role="dialog" aria-modal="true" aria-labelledby="conta-title" hidden>
+  <div class="sheet__panel">
+    <header class="sheet__head">
+      <h2 id="conta-title">Minha conta</h2>
+      <button class="icon-btn" data-close aria-label="Fechar">&times;</button>
+    </header>
+
+    <div class="sheet__body" data-view="login">
+      <p class="eyebrow">Entrar</p>
+      <h3 class="sheet__h">Qual é o seu celular?</h3>
+      <p class="muted small">Mandamos um código de 6 dígitos por SMS. Sem senha.</p>
+      <form id="form-phone" class="stack" novalidate>
+        <label class="field"><span>Celular com DDD</span>
+          <input id="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(21) 99999-0000" required>
+        </label>
+        <button class="btn btn--dark btn--block" type="submit">Receber código</button>
+        <p class="error" id="phone-err" role="alert"></p>
+      </form>
+      <form id="form-otp" class="stack" hidden novalidate>
+        <label class="field"><span>Código recebido</span>
+          <input id="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" required>
+        </label>
+        <p class="hint" id="otp-demo"></p>
+        <button class="btn btn--dark btn--block" type="submit">Entrar</button>
+        <button class="link" type="button" id="otp-back">Trocar número</button>
+        <p class="error" id="otp-err" role="alert"></p>
+      </form>
+    </div>
+
+    <div class="sheet__body" data-view="app" hidden>
+      <nav class="tabs" role="tablist" aria-label="Seções da conta">
+        <button role="tab" data-tab-btn="saldo" aria-selected="true">Saldo</button>
+        <button role="tab" data-tab-btn="lembretes">Lembretes</button>
+        <button role="tab" data-tab-btn="historico">Histórico</button>
+        <button role="tab" data-tab-btn="ajuda">Ajuda</button>
+      </nav>
+
+      <div class="tab" data-tab="saldo">
+        <div class="balance">
+          <p class="muted small" id="hello"></p>
+          <p class="balance__num"><strong id="bal">0</strong> <span id="bal-unit">garrafas</span></p>
+        </div>
+        <div class="grid2">
+          <button class="tile" id="act-devolver"><strong>Devolver casco</strong><span>Registrar no coletor</span></button>
+          <button class="tile" id="act-usar"><strong>Usar saldo</strong><span>Gerar código</span></button>
+        </div>
+        <div class="code" id="code-box" hidden>
+          <div id="qr" class="code__qr" aria-hidden="true"></div>
+          <p class="code__txt" id="code-txt"></p>
+          <p class="muted small">Mostre no caixa. Vale até <strong id="code-exp"></strong>.</p>
+        </div>
+        <p class="toast" id="toast" role="status"></p>
+      </div>
+
+      <div class="tab" data-tab="lembretes" hidden>
+        <p class="muted small" id="rem-summary"></p>
+        <form id="form-rem" class="stack">
+          <label class="field"><span>Com que frequência compra retornável?</span>
+            <select name="freq">
+              <option value="7">Toda semana</option><option value="15">A cada 15 dias</option>
+              <option value="30">Uma vez por mês</option><option value="varia">Varia</option>
+              <option value="ocasioes">Só em ocasiões</option>
+            </select>
+          </label>
+          <label class="field"><span>Em que dia costuma comprar?</span>
+            <select name="dia">
+              <option>segunda</option><option>terça</option><option>quarta</option><option>quinta</option>
+              <option>sexta</option><option>sábado</option><option>domingo</option><option value="varia">Varia</option>
+            </select>
+          </label>
+          <fieldset class="seg"><legend>Quando prefere o lembrete?</legend>
+            <label><input type="radio" name="hora" value="vespera" checked><span>Véspera à noite</span></label>
+            <label><input type="radio" name="hora" value="dia"><span>No dia, de manhã</span></label>
+          </fieldset>
+          <label class="check"><input type="checkbox" name="ok"><span>Pode me lembrar. Sei que desligo quando quiser.</span></label>
+          <button class="btn btn--dark btn--block" type="submit">Salvar lembrete</button>
+        </form>
+        <div class="row-actions">
+          <button class="btn btn--outline btn--sm" id="rem-pause">Pausar 1 mês</button>
+          <button class="btn btn--outline btn--sm" id="rem-off">Desligar lembretes</button>
+        </div>
+        <p class="hint" id="push-hint"></p>
+      </div>
+
+      <div class="tab" data-tab="historico" hidden>
+        <ul class="history" id="history"></ul>
+      </div>
+
+      <div class="tab" data-tab="ajuda" hidden>
+        <p>Atendimento de segunda a sábado, das 8h às 20h. Fora desse horário, respondemos no próximo dia útil.</p>
+        <a class="btn btn--dark btn--block" href="mailto:atendimento@exemplo.com">Falar com uma pessoa</a>
+        <hr>
+        <button class="btn btn--outline btn--block" id="logout">Sair</button>
+        <button class="link link--danger" id="erase">Apagar meus dados</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Área do lojista -->
+<div class="sheet" id="sheet-lojista" role="dialog" aria-modal="true" aria-labelledby="loja-title" hidden>
+  <div class="sheet__panel">
+    <header class="sheet__head">
+      <h2 id="loja-title">Mercearia do Seu Zé</h2>
+      <button class="icon-btn" data-close aria-label="Fechar">&times;</button>
+    </header>
+    <div class="sheet__body">
+      <p class="chip chip--grey">Área do lojista · exemplo</p>
+      <div class="switch-row">
+        <div><strong>Retornável gelada</strong><p class="muted small" id="cold-txt">Sua loja aparece na busca.</p></div>
+        <label class="switch"><input type="checkbox" id="cold" checked><span aria-hidden="true"></span><span class="sr">Tem gelada</span></label>
+      </div>
+      <form id="form-vale" class="stack">
+        <label class="field"><span>Ler vale do cliente</span>
+          <input id="vale" type="text" inputmode="text" autocomplete="off" placeholder="Código de 6 caracteres" maxlength="7">
+        </label>
+        <button class="btn btn--dark btn--block" type="submit">Confirmar troca</button>
+      </form>
+      <div class="stock">
+        <div><span class="muted small">Cascos na loja</span><strong id="st-loja">18</strong></div>
+        <div><span class="muted small">Vales recebidos</span><strong id="st-vales">3</strong></div>
+        <div><span class="muted small">Caixas de 12</span><strong id="st-cx">1</strong><span class="muted small" id="st-falta"></span></div>
+      </div>
+      <div class="grid2">
+        <button class="tile" id="st-add"><strong>+ Recebi vazios</strong><span>Registrar 1 casco</span></button>
+        <button class="tile" id="st-recolher"><strong>Pedir recolhimento</strong><span>Avisar o distribuidor</span></button>
+      </div>
+      <p class="toast" id="toast-loja" role="status"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Retornável Chat: mesmo roteiro do antigo canal de WhatsApp -->
+<div class="sheet sheet--chat" id="sheet-chat" role="dialog" aria-modal="true" aria-labelledby="chat-title" hidden>
+  <div class="sheet__panel chat">
+    <header class="chat__head">
+      <span class="chat__avatar" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 32 32"><path d="M13.5 5h5v3.4c0 1 .6 1.8 1.4 2.7 1 1.2 1.7 2.5 1.7 4.5V25a2 2 0 0 1-2 2h-7.2a2 2 0 0 1-2-2v-9.4c0-2 .7-3.3 1.7-4.5.8-.9 1.4-1.7 1.4-2.7z" fill="#F40009"/></svg>
+      </span>
+      <div class="chat__title">
+        <h2 id="chat-title"><span class="brand__script">Coca-Cola</span> Retornável Chat</h2>
+        <p>online · responde na hora</p>
+      </div>
+      <button class="chat__reset" id="chat-reset" type="button">Recomeçar</button>
+      <button class="icon-btn icon-btn--light" data-close aria-label="Fechar">&times;</button>
+    </header>
+    <div class="chat__msgs" id="chat-msgs" aria-live="polite"></div>
+    <div class="chat__replies" id="chat-replies"></div>
+    <form class="chat__composer" id="chat-form" autocomplete="off">
+      <label class="sr" for="chat-input">Mensagem</label>
+      <input id="chat-input" placeholder="Escreva uma mensagem">
+      <button type="submit" aria-label="Enviar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <p class="chat__kw" id="chat-kw">Palavras: <button type="button">MENU</button><button type="button">SALDO</button><button type="button">LOJAS</button><button type="button">LEMBRETE</button><button type="button">ATENDENTE</button><button type="button">PARAR</button></p>
+    <details class="chat__demo">
+      <summary>Simular SMS (demonstração)</summary>
+      <div class="chat__demo-btns">
+        <button type="button" class="btn btn--outline btn--sm" data-sim="lembrete">Lembrete do ciclo</button>
+        <button type="button" class="btn btn--outline btn--sm" data-sim="checkin">Check-in</button>
+        <button type="button" class="btn btn--outline btn--sm" data-sim="pausa">Aviso de pausa</button>
+        <button type="button" class="btn btn--outline btn--sm" data-sim="lojista">Lojista registra 1 casco</button>
+      </div>
+      <div id="chat-sms"></div>
+    </details>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="bottle.js?v=3"></script>
+<script src="app.js?v=4"></script>
+<script src="chat.js?v=2"></script>
+</body>
+</html>

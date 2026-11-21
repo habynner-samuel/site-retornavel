@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retornável · Troca Fácil</title>
+<meta name="description" content="Devolva o casco, guarde a garrafa como saldo e retire a Coca-Cola retornável em qualquer loja parceira.">
+<meta name="theme-color" content="#F40009">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/TCCC-UnityText-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css?v=21">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="disclaimer" role="note"><strong>Não é um site oficial da Coca-Cola.</strong> Protótipo acadêmico do Field Project FGV EBAPE. Nenhum dado sai do seu navegador.</div>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <a href="#/inicio" class="brand" aria-label="Coca-Cola Retornável, início">
+      <span class="brand__script">Coca-Cola</span>
+      <span class="brand__sep" aria-hidden="true"></span>
+      <span class="brand__word">Retornável</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#/inicio" data-route="inicio">Início</a>
+      <a href="#/como-funciona" data-route="como-funciona">Como funciona</a>
+      <a href="#/lojas" data-route="lojas">Lojas</a>
+      <a href="#/lojistas" data-route="lojistas">Para lojistas</a>
+      <a href="#/duvidas" data-route="duvidas">Dúvidas</a>
+      <a href="#/chat" class="nav__chat">Abrir o chat</a>
+    </nav>
+    <button class="btn btn--outline btn--sm topbar__login" data-open="conta">Minha conta</button>
+  </div>
+</header>
+
+<!-- transição entre páginas: onda vermelha que cobre a tela -->
+<div class="wipe" aria-hidden="true">
+  <svg viewBox="0 0 1440 140" preserveAspectRatio="none"><path d="M0 140 L0 70 C 360 0 760 0 1080 60 C 1240 90 1360 96 1440 80 L1440 140 Z"/></svg>
+  <span class="wipe__body"></span>
+  <svg viewBox="0 0 1440 140" preserveAspectRatio="none"><path d="M0 0 L1440 0 L1440 70 C 1080 140 680 140 360 80 C 200 50 80 44 0 60 Z"/></svg>
+</div>
+
+<main id="conteudo">
+
+<!-- ======================= INÍCIO ======================= -->
+<div class="page page--inicio" data-page="inicio">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__pin">
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <h1 id="hero-title" class="stagger"><span>Devolva o casco.</span><span>Leve a gelada</span><span>quando quiser.</span></h1>
+          <p class="lead">Cada garrafa vazia que você devolve vira saldo. Com ele, você retira uma Coca-Cola retornável em qualquer loja parceira e paga só o líquido.</p>
+          <div class="actions">
+            <button class="btn btn--light" data-open="chat">Começar no chat</button>
+            <a class="btn btn--ghost-light" href="#/como-funciona">Como funciona</a>
+          </div>
+        </div>
+        <figure class="hero__bottle" aria-label="Garrafa retornável de 2 litros girando">
+          <img id="seq" src="seq/f000.webp" width="480" height="795" alt="Garrafa retornável Coca-Cola de 2 litros, gelada, com tampa amarela">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="over">
+    {{WAVE}}
+    <section class="facts-row" aria-label="Resumo do programa">
+      <div class="wrap facts-row__in">
+        <p><strong>Até 25 usos</strong> por garrafa, com lavagem e rótulo novo a cada volta</p>
+        <p><strong>Balcão, coletor ou máquina</strong> para devolver</p>
+        <p><strong>Lembrete por SMS</strong>, sem aplicativo</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="h-xl">Como funciona</h2>
+        <div class="tiles">
+          <a class="tile-img tile-img--wide reveal" href="#/lojas">
+            <img src="img/01-consumo.jpg" alt="Pessoas almoçando em um bar com refrigerante na mesa" loading="lazy">
+            <span class="tile-img__txt"><b>Devolva de manhã, retire no almoço</b><span>O casco fica na loja ou na máquina. A garrafa cheia você pega depois, em qualquer loja parceira.</span></span>
+          </a>
+          <button class="tile-img reveal" type="button" data-open="chat">
+            <img src="img/02-qr.jpg" alt="Celular lendo o QR Code do rótulo" loading="lazy">
+            <span class="tile-img__txt"><b>O QR do rótulo abre o chat</b><span>Cadastro com nome, celular e CPF.</span></span>
+          </button>
+          <a class="tile-img reveal" href="#/lojistas">
+            <img src="img/03-balcao.jpg" alt="Lojista atendendo no balcão de um mercadinho" loading="lazy">
+            <span class="tile-img__txt"><b>Para lojistas</b><span>O vale do cliente conta como casco na troca de caixas.</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-band">
+      <div class="wrap steps-band__in">
+        <div class="steps-band__copy">
+          <h2 class="h-xl">Do vazio à gelada</h2>
+          <ol class="steps">
+            <li class="reveal"><h3>Leve a garrafa vazia</h3><p>Entregue no balcão, deixe no coletor ou passe na máquina. O saldo cai na hora.</p></li>
+            <li class="reveal"><h3>Escolha uma retornável</h3><p>Em qualquer loja parceira. Se esqueceu o casco, use o saldo.</p></li>
+            <li class="reveal"><h3>Pague só o líquido</h3><p>Mostre o código do chat no caixa. Ele vale 2 horas.</p></li>
+          </ol>
+        </div>
+        <figure class="steps-band__img reveal"><img src="seq/vazia.webp" alt="Casco vazio da garrafa retornável de 2 litros" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="reveal">
+          <h2 class="h-xl">Lembrete por SMS</h2>
+          <p class="muted">Você diz no chat em que dia costuma comprar. Um SMS chega no horário que você escolher, uma vez por ciclo.</p>
+          <dl class="pairs">
+            <div><dt>Véspera, 19h</dt><dd>Para quem compra para casa.</dd></div>
+            <div><dt>No dia, 7h30</dt><dd>Para quem leva o casco no caminho do trabalho.</dd></div>
+          </dl>
+          <button class="btn btn--dark" data-open="chat">Configurar no chat</button>
+        </div>
+        <div class="phone reveal" aria-label="Exemplo de SMS na tela do celular">
+          <div class="phone__screen phone__screen--lock">
+            <p class="phone__clock">19:00</p>
+            <p class="phone__date">segunda-feira, 9 de novembro</p>
+            <div class="notif"><div class="notif__from"><span>Mensagens · Retornável</span><span>agora</span></div>Amanhã é seu dia de compra, Ana. Seu saldo: 2 garrafas. Lojas com gelada: retornavel.app/l</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <h2 class="h-xl">A mesma garrafa, até 25 vezes</h2>
+          <p class="muted">Depois de cada uso, o casco volta para a fábrica, é lavado, higienizado, enchido e recebe um rótulo novo.</p>
+        </div>
+        <div class="mosaic">
+          <figure class="mosaic__a reveal"><img src="img/04-mesa.jpg" alt="Família reunida no almoço" loading="lazy"><figcaption>Em casa</figcaption></figure>
+          <figure class="mosaic__b reveal"><img src="img/05-praia.jpg" alt="Quiosque na praia" loading="lazy"><figcaption>No quiosque</figcaption></figure>
+          <figure class="mosaic__c reveal"><img src="img/06-mercadinho.jpg" alt="Loja de bairro" loading="lazy"><figcaption>Na loja do bairro</figcaption></figure>
+          <figure class="mosaic__d reveal"><img src="img/07-fabrica.jpg" alt="Caminhão de distribuição" loading="lazy"><figcaption>De volta para a fábrica</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <svg class="cta__wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 L1440 0 L1440 30 C 1180 100 860 120 520 76 C 300 48 140 34 0 50 Z"/></svg>
+      <div class="wrap cta__in">
+        <h2 class="h-xl">Escaneou o QR? Comece pelo chat.</h2>
+        <button class="btn btn--light" data-open="chat">Abrir o chat</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ======================= COMO FUNCIONA (o fundo muda de cor a cada passo) ======================= -->
+<div class="page page--como" data-page="como-funciona" hidden>
+  <section class="story" id="story" data-step="0">
+    <div class="wrap story__head">
+      <p class="crumb"><a href="#/inicio">Início</a> <span>/</span> Como funciona</p>
+      <h1 class="stagger"><span>Tudo pelo chat.</span><span>O lembrete,</span><span>por SMS.</span></h1>
+    </div>
+    <div class="wrap story__in">
+      <ol class="story__steps">
+        <li data-i="1"><span class="story__tag">No chat</span><h2>Escaneie o QR</h2><p>O QR do rótulo, da gôndola, do caixa, do coletor ou da máquina abre o chat no navegador. Não precisa baixar nada.</p></li>
+        <li data-i="2"><span class="story__tag">No chat</span><h2>Faça o cadastro</h2><p>Nome, celular e CPF. Depois, três perguntas: com que frequência você compra, em que dia e quando quer o lembrete.</p></li>
+        <li data-i="3"><span class="story__tag">No chat</span><h2>Use o saldo</h2><p>Cada casco devolvido vira uma garrafa no saldo. Para usar, o chat gera um código de 2 horas que você mostra no caixa.</p></li>
+        <li data-i="4"><span class="story__tag">Por SMS</span><h2>Receba o lembrete</h2><p>Um SMS por ciclo, no dia e horário escolhidos. Nada entre 21h e 7h. Para parar, responda PARAR.</p></li>
+      </ol>
+      <div class="story__phone" aria-hidden="true">
+        <div class="phone">
+          <div class="phone__screen">
+            <div class="scr scr--1">
+              <div class="scr__bar">Retornável Chat</div>
+              <div class="scr__msgs"><p class="b b--me">Oi! Quero usar minha retornável</p><p class="b">Oi! Aqui você guarda suas garrafas como saldo. Qual é o seu nome?</p></div>
+            </div>
+            <div class="scr scr--2">
+              <div class="scr__bar">Retornável Chat</div>
+              <div class="scr__msgs"><p class="b">Agora seu CPF.</p><p class="b b--me">123.456.789-09</p><p class="b">Com que frequência você compra?</p><p class="chips"><span>Toda semana</span><span>A cada 15 dias</span><span>Uma vez por mês</span></p></div>
+            </div>
+            <div class="scr scr--3">
+              <div class="scr__bar">Retornável Chat</div>
+              <div class="scr__msgs"><p class="b">Você tem 2 garrafas. Mostre esse código no caixa.</p><div class="scr__code"><span class="scr__qr"></span><b>7Z4 QHN</b><small>válido até 16:11</small></div></div>
+            </div>
+            <div class="scr scr--4 phone__screen--lock">
+              <p class="phone__clock">19:00</p>
+              <p class="phone__date">segunda-feira</p>
+              <div class="notif"><div class="notif__from"><span>Mensagens · Retornável</span><span>agora</span></div>Amanhã é seu dia de compra, Ana. Seu saldo: 2 garrafas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split split--top">
+      <h2 class="h-xl reveal">Seus dados</h2>
+      <dl class="pairs pairs--grid reveal">
+        <div><dt>O que guardamos</dt><dd>Nome, celular, CPF, rotina de compra e histórico de trocas. Nada de endereço.</dd></div>
+        <div><dt>Localização</dt><dd>Usada só na busca de lojas. Não fica salva.</dd></div>
+        <div><dt>Código de uso</dt><dd>Vale uma vez, por 2 horas. A troca só fecha quando você confirma.</dd></div>
+        <div><dt>Apagar tudo</dt><dd>Digite APAGAR MEUS DADOS no chat.</dd></div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= LOJAS (o mapa é o topo) ======================= -->
+<div class="page page--lojas" data-page="lojas" hidden>
+  <section class="mapwrap" id="lojas" aria-label="Mapa de lojas parceiras">
+    <div class="map" id="map"></div>
+    <aside class="finder">
+      <p class="crumb crumb--dark"><a href="#/inicio">Início</a> <span>/</span> Lojas</p>
+      <h1>Lojas perto de você</h1>
+      <p class="muted small">Aparecem primeiro as que têm retornável gelada hoje. Sua localização não fica salva.</p>
+      <div class="finder__bar">
+        <button class="btn btn--dark btn--sm" id="btn-locate">Usar minha localização</button>
+        <label class="field field--inline">
+          <span class="sr">Buscar por bairro</span>
+          <input id="bairro" type="text" placeholder="Buscar por bairro ou loja" autocomplete="address-level3">
+        </label>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar lojas">
+        <button type="button" class="filter is-on" data-f="todas">Todas</button>
+        <button type="button" class="filter" data-f="gelada">Com gelada</button>
+        <button type="button" class="filter" data-f="coletor">Coletor</button>
+        <button type="button" class="filter" data-f="maquina">Máquina</button>
+      </div>
+      <p class="finder__status" id="finder-status" role="status"></p>
+      <ul class="stores" id="stores"></ul>
+    </aside>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h-xl reveal">Onde devolver</h2>
+      <div class="points">
+        <article class="point reveal"><img src="img/03-balcao.jpg" alt="Balcão de mercadinho" loading="lazy"><h3>Balcão</h3><p>Entregue o casco e diga seu celular. O lojista registra na hora.</p></article>
+        <article class="point reveal"><img src="img/08-coletor.jpg" alt="Coletor de garrafas dentro da loja" loading="lazy"><h3>Coletor</h3><p>Deixe o casco e escaneie o QR do coletor. Até 6 garrafas por dia.</p></article>
+        <article class="point reveal"><img src="img/09-maquina.jpg" alt="Máquina de devolução de garrafas no supermercado" loading="lazy"><h3>Máquina</h3><p>Digite o celular. A máquina conta os cascos e credita o saldo. Em teste.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= LOJISTAS (cortina lateral na foto) ======================= -->
+<div class="page page--lojistas" data-page="lojistas" hidden>
+  <header class="split-head">
+    <div class="split-head__txt">
+      <p class="crumb crumb--light"><a href="#/inicio">Início</a> <span>/</span> Para lojistas</p>
+      <h1>Para lojistas</h1>
+      <p class="lead">Controle de vasilhames e vales pelo celular da loja. A adesão é feita pelo vendedor do distribuidor.</p>
+      <button class="btn btn--light" data-open="lojista">Ver o painel de exemplo</button>
+    </div>
+    <div class="split-head__img"><img src="img/10-lojista.jpg" alt="Lojista no balcão com engradados de garrafas retornáveis"></div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <ol class="features">
+        <li class="reveal"><h3>Ler o vale do cliente</h3><p>A câmera do celular lê o código. O vale conta como casco na troca de caixas de 12.</p></li>
+        <li class="reveal"><h3>Registrar vasilhames</h3><p>Recebeu vazios ou entregou caixas: um toque atualiza o saldo da loja.</p></li>
+        <li class="reveal"><h3>Tem gelada / Acabou</h3><p>A loja só aparece no mapa do consumidor quando está com gelada.</p></li>
+        <li class="reveal"><h3>Pedir recolhimento</h3><p>Chame o distribuidor quando os vazios ocuparem espaço, sem esperar a visita.</p></li>
+      </ol>
+    </div>
+  </section>
+  <section class="section section--grey">
+    <div class="wrap split">
+      <figure class="flat-img reveal"><img src="img/11-recolhimento.jpg" alt="Caminhão de distribuição" loading="lazy"></figure>
+      <div class="reveal">
+        <h2 class="h-xl">Vazias e vales na mesma conta</h2>
+        <p class="muted">O caminhão chega cerca de 48 horas depois do pedido, e a caixa é fechada de 12. No dia da entrega, os vales entram na conta junto com as vazias.</p>
+        <dl class="ledger">
+          <div><dt>Vazias na loja</dt><dd>32</dd></div>
+          <div><dt>Vales de clientes</dt><dd>4</dd></div>
+          <div><dt>Caixas fechadas</dt><dd>3</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= DÚVIDAS ======================= -->
+<div class="page page--duvidas" data-page="duvidas" hidden>
+  <section class="section section--duvidas">
+    <div class="wrap split split--top">
+      <div>
+        <p class="crumb crumb--dark"><a href="#/inicio">Início</a> <span>/</span> Dúvidas</p>
+        <h1>Dúvidas</h1>
+        <p class="muted">Não achou a resposta? Digite ATENDENTE no chat.</p>
+        <button class="btn btn--outline btn--sm" data-open="chat">Abrir o chat</button>
+      </div>
+      <div class="faq" id="duvidas">
+        <details><summary>Preciso de WhatsApp ou de aplicativo?</summary><p>Não. O chat abre no navegador do celular e o lembrete chega por SMS.</p></details>
+        <details><summary>Por que pedem CPF e celular?</summary><p>O celular identifica você no balcão e na máquina e recebe o lembrete. O CPF liga o saldo ao seu cadastro no Troca Fácil e evita contas duplicadas.</p></details>
+        <details><summary>A retornável fica mais barata?</summary><p>Com o casco, você paga só o líquido. O casco é um valor seu que fica guardado.</p></details>
+        <details><summary>Quantas vezes a garrafa é usada?</summary><p>Até 25. A cada volta ela é lavada, higienizada, enchida e recebe um rótulo novo.</p></details>
+        <details><summary>Esqueci o casco. E agora?</summary><p>Se tiver saldo, use o saldo. O chat também pode passar seu lembrete para a manhã do dia da compra.</p></details>
+        <details><summary>Quantas garrafas posso deixar no coletor?</summary><p>Até 6 por dia por cadastro. O restante você registra no dia seguinte.</p></details>
+        <details><summary>A máquina não aceitou meu casco.</summary><p>Ela devolve o casco sem danificar. Procure o balcão mais próximo no mapa de lojas.</p></details>
+        <details><summary>Troquei de número.</summary><p>Digite ATENDENTE no chat. A equipe confere seu CPF e passa saldo e histórico para o número novo.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div class="footer__brand">
+      <span class="brand__script">Coca-Cola</span>
+      <p>Retornável · Troca Fácil</p>
+    </div>
+    <nav class="footer__col" aria-label="Programa"><h4>Programa</h4><a href="#/como-funciona">Como funciona</a><a href="#/lojas">Lojas</a><a href="#/duvidas">Dúvidas</a></nav>
+    <nav class="footer__col" aria-label="Para você"><h4>Para você</h4><a href="#/chat">Chat</a><a href="#" data-open="conta">Minha conta</a><a href="#" data-open="conta" data-tab="ajuda">Atendimento</a></nav>
+    <nav class="footer__col" aria-label="Para lojistas"><h4>Para lojistas</h4><a href="#/lojistas">Área do lojista</a><a href="#" data-open="lojista">Painel de exemplo</a></nav>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Protótipo acadêmico do Field Project FGV EBAPE. Não é um site oficial da Coca-Cola. Dados de exemplo; nada é enviado para fora do navegador. Garrafa: modelo 3D feito no Blender para este protótipo.</p>
+  </div>
+</footer>
+
+{{SHEETS}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="seq.js?v=3"></script>
+<script src="map.js?v=1"></script>
+<script src="app.js?v=6"></script>
+<script src="chat.js?v=4"></script>
+<script src="fx.js?v=1"></script>
+</body>
+</html>

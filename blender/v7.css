@@ -1,0 +1,20 @@
+
+/* =================== v7: foto como textura e garrafa grande à direita =================== */
+.hero__photo { left: 0; right: 0; width: auto; inset: -40px; }
+.hero__photo::before { display: none; }
+.hero__photo img { opacity: .10; filter: blur(7px) grayscale(.2); mix-blend-mode: luminosity; transform: scale(calc(1.06 + var(--p) * .08));
+  -webkit-mask-image: radial-gradient(120% 100% at 60% 45%, #000 40%, transparent 85%); mask-image: radial-gradient(120% 100% at 60% 45%, #000 40%, transparent 85%); }
+.page--inicio .hero__photo img { animation: none; }
+.hero__bottle { left: 71%; top: 7%; bottom: auto; height: 176%;
+  transform: translateX(-50%) translateY(calc(var(--p) * -14%)) rotate(calc(var(--p) * -4deg)); transform-origin: 50% 30%; }
+@media (max-width: 1080px) {
+  .hero__photo { position: absolute; inset: 0; height: auto; min-height: 0; }
+  .hero__in { padding-top: 46vh; }
+  .hero__bottle { left: auto; right: -4%; top: 2vh; height: auto; transform: none; }
+  .hero__bottle img { height: 78vh; }
+}
+@media (max-width: 560px) {
+  .hero__in { padding-top: 40vh; }
+  .hero__bottle { right: -14%; top: 1vh; }
+  .hero__bottle img { height: 64vh; }
+}

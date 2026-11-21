@@ -1,0 +1,21 @@
+# Cópia montada para o Vercel (gerada por blender/deploy.sh)
+retornavel-chat/
+.vercel/
+
+# Quadros brutos do Blender (PNG pesados; o site usa as versões WebP em site/seq)
+blender/master/seq_turn/
+blender/master/seq_fill/
+blender/master/seq_old/
+blender/turn/
+blender/turn_hd/
+blender/fill/
+blender/out/
+blender/stills/
+blender/seq-v1-backup/
+blender/seq-yellow-backup/
+*.blend1
+
+# Backups grandes e arquivos temporários
+backup/
+*.log
+__pycache__/

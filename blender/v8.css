@@ -1,0 +1,50 @@
+
+/* =================== v8 =================== */
+/* lojas no chat: linhas clicáveis */
+.cardmsg__shop { width: 100%; background: none; border: 0; border-bottom: 1px solid #E3E6EF; padding: 12px 0; text-align: left; font: inherit; color: inherit; cursor: pointer; align-items: center; }
+.cardmsg__shop:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+.cardmsg__shop > span:first-child { display: grid; gap: 2px; min-width: 0; }
+.cardmsg__go { white-space: nowrap; color: var(--muted); font-size: 13px; }
+.cardmsg__go b { font-size: 18px; color: var(--ink); margin-left: 4px; }
+/* créditos */
+.cardmsg__credit, .cardmsg__total { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E3E6EF; }
+.cardmsg__credit span { display: grid; gap: 2px; }
+.cardmsg__credit small { color: var(--muted); }
+.cardmsg__total { border-bottom: 0; padding-bottom: 0; }
+.cardmsg__total b { font-size: 18px; }
+
+/* ficha da loja (dentro do chat) */
+.shopmodal { position: absolute; inset: 0; z-index: 10; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; animation: fadeIn .2s ease; }
+.shopmodal[hidden] { display: none; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.shopmodal__box { position: relative; width: 100%; max-height: 92%; overflow-y: auto; background: #fff; border-radius: 24px 24px 0 0; animation: sheetUp .3s var(--ease); }
+@keyframes sheetUp { from { transform: translateY(40px); } to { transform: none; } }
+.shopmodal__gal { display: flex; gap: 4px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.shopmodal__gal::-webkit-scrollbar { display: none; }
+.shopmodal__gal img { flex: 0 0 86%; height: 190px; object-fit: cover; scroll-snap-align: start; }
+.shopmodal__x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(0,0,0,.6); color: #fff; font-size: 22px; cursor: pointer; }
+.shopmodal__body { padding: 18px 20px 22px; display: grid; gap: 10px; }
+.shopmodal__body h3 { font-size: 20px; }
+.shopmodal__kind { margin: 0; color: var(--muted); font-size: 14px; }
+.shopmodal__state { margin: 0; font-size: 13px; font-weight: 600; color: var(--ok); display: flex; align-items: center; gap: 6px; }
+.shopmodal__state::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.shopmodal__state.is-off { color: var(--muted); }
+.shopmodal__body dl { margin: 4px 0 0; display: grid; gap: 8px; }
+.shopmodal__body dl div { display: grid; grid-template-columns: 76px 1fr; gap: 8px; font-size: 14px; }
+.shopmodal__body dt { color: var(--muted); }
+.shopmodal__body dd { margin: 0; }
+.shopmodal__map { height: 180px; background: #ECE7DF; border-radius: 14px; overflow: hidden; }
+.shopmodal__map iframe { width: 100%; height: 100%; border: 0; }
+.shopmodal__note { margin: 0; font-size: 12px; color: var(--muted); }
+
+/* Como funciona no celular: texto em cima, iPhone embaixo, trocando conforme a rolagem */
+@media (max-width: 860px) {
+  .story { background: var(--bg) !important; color: var(--fg) !important; padding-bottom: 0; }
+  .story__in { display: block; }
+  .story__steps li { min-height: 96vh; justify-content: flex-start; padding: 28px 0 0; border-top: 0; opacity: .3; }
+  .story__steps li.is-on { opacity: 1; }
+  .story__steps h2 { font-size: 28px; }
+  .story__steps p { font-size: 16px; }
+  .story__phone { display: flex !important; position: sticky; top: auto; bottom: 14px; height: 50vh; margin-top: -50vh; justify-content: center; pointer-events: none; z-index: 2; }
+  .story__phone .iphone { height: 100%; width: auto; }
+}

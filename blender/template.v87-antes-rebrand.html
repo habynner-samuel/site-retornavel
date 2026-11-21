@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coca-Cola Retornável</title>
+<meta name="description" content="Com o casco, você paga só o líquido. Deixe o casco vazio na máquina da Estação Nova Iguaçu e pegue uma Coca-Cola Retornável cheia na volta.">
+<meta name="theme-color" content="#F40009">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/TCCC-UnityText-Bold.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css?v=87">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="disclaimer" role="note"><strong>Não é um site oficial da Coca-Cola.</strong> Protótipo acadêmico do Field Project FGV EBAPE. Nenhum dado sai do seu navegador.</div>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <a href="#/inicio" class="brand" aria-label="Coca-Cola Retornável, início">
+      <span class="brand__script">Coca-Cola</span>
+      <span class="brand__sep" aria-hidden="true"></span>
+      <span class="brand__word">Retornável</span>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#/inicio" data-route="inicio">Início</a>
+      <a href="#/como-funciona" data-route="como-funciona">Como funciona</a>
+      <a href="#/lojas" data-route="lojas">Lojas</a>
+      <a href="#/duvidas" data-route="duvidas">Dúvidas</a>
+      <a href="#/chat" class="nav__chat">Abrir o chat</a>
+    </nav>
+  </div>
+</header>
+
+{{LOADER}}
+
+<main id="conteudo">
+
+<!-- ======================= INÍCIO ======================= -->
+<div class="page page--inicio" data-page="inicio">
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <div class="hero__photo" aria-hidden="true"><img src="img/04-mesa.jpg" alt=""></div>
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="hero__kicker">Coca-Cola Retornável</p>
+        <h1 id="hero-title">Devolva o casco.<br>Leve a próxima <span class="br-m"></span>quando quiser.</h1>
+        <p class="lead">Com o casco, você paga só o líquido. Deixe o casco vazio na máquina da Estação Nova Iguaçu no caminho e pegue a sua Coca cheia na volta.</p>
+        <div class="actions">
+          <a class="btn btn--light" href="#/lojas">Onde tem retornável</a>
+          <a class="btn btn--ghost-light" href="#/como-funciona">Como funciona</a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero__bottle" aria-label="Garrafa retornável de 2 litros girando">
+      <img id="seq" src="seq/t000.webp" width="896" height="1484" data-box="0.6038" data-frames="240" data-prefix="seq/t" data-frames-m="240" data-prefix-m="seq/tm" alt="Garrafa retornável Coca-Cola de 2 litros com tampa verde">
+    </figure>
+  </section>
+
+  <div class="over">
+    {{WAVE}}
+    <section class="facts-row" aria-label="Resumo do programa">
+      <div class="wrap facts-row__in">
+        <p><strong>Pague só o líquido</strong> trazendo o casco</p>
+        <p><strong>Máquina na estação</strong> Nova Iguaçu</p>
+        <p><strong>Vale-casco em papel</strong>, válido por 7 dias</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 class="h-xl">Como funciona</h2>
+        <div class="tiles">
+          <a class="tile-img tile-img--wide reveal" href="#/como-funciona">
+            <img src="img/09-maquina.jpg" alt="Máquina Retornável na estação" loading="lazy">
+            <span class="tile-img__txt"><b>Deixe o casco na ida, pegue a cheia na volta</b><span>A máquina fica na Estação Nova Iguaçu, no seu caminho. O vale sai impresso e é válido por 7 dias.</span></span>
+          </a>
+          <a class="tile-img reveal" href="#/como-funciona">
+            <img src="img/04-mesa.jpg" alt="Família reunida no almoço com Coca-Cola na mesa" loading="lazy">
+            <span class="tile-img__txt"><b>Tem casco em casa?</b><span>Você tá perdendo dinheiro. Com ele, a próxima sai pelo preço do líquido.</span></span>
+          </a>
+          <a class="tile-img reveal" href="#/lojas">
+            <img src="img/06-mercadinho.jpg" alt="Loja de bairro com retornáveis na geladeira" loading="lazy">
+            <span class="tile-img__txt"><b>Onde tem retornável hoje</b><span>Veja no mapa as lojas perto de você com a retornável disponível.</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-band" id="fillband">
+      <div class="wrap steps-band__in">
+        <div class="steps-band__copy">
+          <h2 class="h-xl">Do casco vazio à garrafa cheia</h2>
+          <ol class="steps">
+            <li class="reveal"><h3>Traga o casco vazio</h3><p>Deixe na máquina da Estação Nova Iguaçu no caminho do trabalho. Ela confere o casco na hora.</p></li>
+            <li class="reveal"><h3>Pegue o vale-casco</h3><p>O vale sai impresso e é válido por 7 dias. Guarde com você.</p></li>
+            <li class="reveal"><h3>Pegue a cheia na volta</h3><p>Coloque o vale na máquina e pague só o líquido, no Pix ou por aproximação. A máquina fica com o vale.</p></li>
+          </ol>
+        </div>
+        <figure class="steps-band__img"><img id="fill" src="seq/g000.webp" width="260" height="900" data-frames="120" data-prefix="seq/g" data-frames-m="120" data-prefix-m="seq/gm" alt="Garrafa retornável de 2 litros enchendo de Coca-Cola" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split split--top station">
+        <div class="reveal">
+          <h2 class="h-xl">Traga sua garrafa, pegue uma cheia na estação</h2>
+          <p class="muted">A máquina Retornável fica na Estação Nova Iguaçu, no Ramal Japeri. Ela recebe o casco, imprime o vale e tem Coca-Cola gelada para você levar na volta.</p>
+          <dl class="pairs">
+            <div><dt>Na ida</dt><dd>Deixe o casco vazio e pegue o vale.</dd></div>
+            <div><dt>Na volta</dt><dd>Use o vale e leve a cheia, pagando só o líquido.</dd></div>
+            <div><dt>Pagamento</dt><dd>Pix ou aproximação.</dd></div>
+          </dl>
+          <a class="btn btn--dark" href="#/lojas">Ver no mapa</a>
+        </div>
+        <figure class="station__img reveal"><img src="img/09-maquina.jpg" alt="Máquina Retornável na Estação Nova Iguaçu" loading="lazy"></figure>
+      </div>
+    </section>
+
+    <section class="section section--sms">
+      <div class="wrap split split--top">
+        <div class="reveal sms__copy">
+          <h2 class="h-xl">Lembrete por SMS</h2>
+          <p class="muted">Você diz no chat em que dia costuma comprar. Um SMS chega no horário que você escolher, para você não esquecer o casco em casa.</p>
+          <dl class="pairs">
+            <div><dt>Véspera, 19h</dt><dd>Para deixar o casco perto da porta.</dd></div>
+            <div><dt>No dia, 7h30</dt><dd>Para levar o casco no caminho da estação.</dd></div>
+            <div><dt>Só nome e celular</dt><dd>Nada entre 21h e 7h. Para parar, responda PARAR.</dd></div>
+          </dl>
+          <button class="btn btn--dark" data-chat="Lembrete por SMS">Ativar no chat</button>
+        </div>
+        <div class="iphone reveal" aria-label="Exemplo do SMS na tela de bloqueio de um iPhone">
+          <div class="iphone__screen">{{LOCK}}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <h2 class="h-xl">A história da Retornável</h2>
+          <p class="muted">A garrafa que vai e volta é um dos jeitos mais antigos de tomar Coca-Cola. Você compra a bebida, devolve a garrafa vazia e ela volta para a fábrica, onde é lavada, higienizada e enchida de novo, muitas vezes. Como a garrafa é reaproveitada, você paga só pelo que bebe: é por isso que a retornável sai mais em conta.</p>
+        </div>
+        <div class="mosaic">
+          <figure class="mosaic__a reveal"><img src="img/04-mesa.jpg" alt="Família reunida no almoço" loading="lazy"><figcaption>Em casa</figcaption></figure>
+          <figure class="mosaic__b reveal"><img src="img/05-praia.jpg" alt="Quiosque na praia" loading="lazy"><figcaption>No quiosque</figcaption></figure>
+          <figure class="mosaic__c reveal"><img src="img/06-mercadinho.jpg" alt="Loja de bairro" loading="lazy"><figcaption>Na loja do bairro</figcaption></figure>
+          <figure class="mosaic__d reveal"><img src="img/07-fabrica.jpg" alt="Caminhão de distribuição" loading="lazy"><figcaption>De volta para a fábrica</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <svg class="cta__wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 L1440 0 L1440 30 C 1180 100 860 120 520 76 C 300 48 140 34 0 50 Z"/></svg>
+      <div class="wrap cta__in">
+        <h2 class="h-xl">Você sabia que dá pra economizar na sua Coca?</h2>
+        <button class="btn btn--light" data-open="chat">Fale com a gente</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ======================= COMO FUNCIONA (o fundo muda de cor a cada passo) ======================= -->
+<div class="page page--como" data-page="como-funciona" hidden>
+  <section class="story" id="story" data-step="0">
+    <div class="wrap story__head">
+      <p class="crumb"><a href="#/inicio">Início</a> <span>/</span> Como funciona</p>
+      <h1 class="story__title">Como funciona</h1>
+      <p class="story__lead">Do casco vazio à garrafa cheia, sem aplicativo. E um SMS para você não esquecer o casco.</p>
+    </div>
+    <div class="wrap story__in">
+      <ol class="story__steps">
+        <li data-i="1"><span class="story__tag">Na máquina</span><h2>Traga o casco</h2><p>Na Estação Nova Iguaçu, toque em "Tenho um casco vazio" e coloque o casco na abertura. A máquina confere na hora.</p></li>
+        <li data-i="2"><span class="story__tag">Na máquina</span><h2>Pegue o vale</h2><p>O vale-casco sai impresso, com a data de validade. Ele é válido por 7 dias.</p></li>
+        <li data-i="3"><span class="story__tag">Na volta</span><h2>Leve a cheia</h2><p>Toque em "Tenho um vale", coloque o vale na máquina e pague só o líquido. A máquina fica com o vale.</p></li>
+        <li data-i="4"><span class="story__tag">No site</span><h2>Ache a retornável</h2><p>Quer comprar perto de casa? O chat mostra as lojas com retornável disponível hoje.</p></li>
+        <li data-i="5"><span class="story__tag">Por SMS</span><h2>Receba o lembrete</h2><p>Diga no chat seu dia de compra. Um SMS chega na véspera ou no dia, no horário que você escolher. Nada entre 21h e 7h. Para parar, responda PARAR.</p></li>
+      </ol>
+      <div class="story__phone" aria-hidden="true">
+        <div class="iphone">
+          <div class="iphone__screen iphone__screen--app">
+            <div class="scr scr--1">
+              <div class="scr__bar">Fale com a Coca-Cola Retornável</div>
+              <div class="scr__msgs"><p class="b b--me">Como devolvo meu casco?</p><p class="b">Leve à máquina da Estação Nova Iguaçu e toque em "Tenho um casco vazio". Ela confere na hora.</p></div>
+            </div>
+            <div class="scr scr--2">
+              <div class="scr__bar">Fale com a Coca-Cola Retornável</div>
+              <div class="scr__msgs"><p class="b">Casco aceito! Pegue o vale que saiu impresso.</p><div class="scr__code"><span class="scr__qr"></span><b>Vale-casco</b><small>válido por 7 dias · uso único</small></div></div>
+            </div>
+            <div class="scr scr--3">
+              <div class="scr__bar">Fale com a Coca-Cola Retornável</div>
+              <div class="scr__msgs"><p class="b b--me">E na volta?</p><p class="b">Toque em "Tenho um vale" e coloque o vale na máquina. Você paga só o líquido, no Pix ou por aproximação.</p></div>
+            </div>
+            <div class="scr scr--4">
+              <div class="scr__bar">Fale com a Coca-Cola Retornável</div>
+              <div class="scr__msgs"><p class="b b--me">Onde tem retornável perto de mim?</p><p class="b">Achei estes lugares com retornável hoje:</p><p class="chips chips--list"><span>Mercearia do Seu Zé · 400 m</span><span>Máquina da Estação · 900 m</span><span>Mercadinho Boa Vista · 1,6 km</span></p></div>
+            </div>
+            <div class="scr scr--5">{{LOCK}}</div>
+          </div>
+        </div>
+      <div class="vt" aria-hidden="true">
+        <div class="vt__slot"><span>VALE</span></div>
+        <div class="vt__win">
+          <div class="vt__paper">
+            <p class="vt__brand">COCA-COLA<br>RETORNÁVEL 2L</p>
+            <p class="vt__title">VALE-CASCO</p>
+            <p class="vt__txt">1 Coca-Cola Retornável 2L<br>pagando só o líquido</p>
+            <p class="vt__k">VÁLIDO ATÉ</p>
+            <p class="vt__date">16/11/2026</p>
+            <span class="vt__bars"></span>
+            <p class="vt__code">CR-7Q4K-28MX</p>
+            <p class="vt__small">Máquina NI-01 · Estação Nova Iguaçu<br>Uso único: a máquina recolhe este vale.</p>
+          </div>
+        </div>
+        <p class="vt__ok"><span class="vt__check"></span>Vale recolhido. Pague só o líquido.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap split split--top">
+      <h2 class="h-xl reveal">Bom saber</h2>
+      <dl class="pairs pairs--grid reveal">
+        <div><dt>Primeira vez</dt><dd>Sem casco? Na máquina, toque em "É minha primeira vez": você paga a bebida e o casco. Na próxima, é só trazer o casco.</dd></div>
+        <div><dt>Vale-casco</dt><dd>Válido por 7 dias, para usar uma vez. A data vem impressa nele.</dd></div>
+        <div><dt>Pagamento</dt><dd>Pix ou cartão e celular por aproximação.</dd></div>
+        <div><dt>Lembrete por SMS</dt><dd>Só se você quiser: nome e celular. Um SMS por ciclo, nunca entre 21h e 7h. Para parar, responda PARAR.</dd></div>
+        <div><dt>Seus dados</dt><dd>Para apagar nome, celular e lembretes, digite APAGAR MEUS DADOS no chat.</dd></div>
+        <div><dt>Localização</dt><dd>Usada só para mostrar as lojas perto de você. Não fica salva.</dd></div>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= LOJAS (o mapa é o topo) ======================= -->
+<div class="page page--lojas" data-page="lojas" hidden>
+  <section class="mapwrap" id="lojas" aria-label="Mapa de lojas parceiras">
+    <div class="map" id="map"></div>
+    <aside class="finder" aria-label="Buscar lojas">
+      <div class="finder__head">
+        <p class="crumb crumb--dark"><a href="#/inicio">Início</a> <span>/</span> Lojas</p>
+        <h1>Encontre uma loja</h1>
+      </div>
+      <div class="finder__search">
+        <label class="search">
+          <span class="sr">Buscar por bairro ou nome da loja</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="bairro" type="text" placeholder="Bairro ou nome da loja" autocomplete="address-level3">
+          <button class="search__loc" id="btn-locate" type="button" title="Usar minha localização" aria-label="Usar minha localização">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          </button>
+        </label>
+        <label class="select">
+          <span>Mostrar</span>
+          <select id="filter-sel">
+            <option value="todas">Todas as lojas</option>
+            <option value="disponivel">Com retornável disponível hoje</option>
+            <option value="maquina">Máquina Retornável</option>
+          </select>
+        </label>
+      </div>
+      <p class="finder__status" id="finder-status" role="status"></p>
+      <ul class="stores" id="stores"></ul>
+      <p class="finder__foot">A localização não fica salva.</p>
+    </aside>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h-xl reveal">Onde trocar</h2>
+      <div class="points points--2">
+        <article class="point reveal"><img src="img/09-maquina.jpg" alt="Máquina Retornável na estação" loading="lazy"><h3>Máquina na estação</h3><p>Na Estação Nova Iguaçu. Deixe o casco, pegue o vale e leve a cheia na volta, pagando só o líquido.</p></article>
+        <article class="point reveal"><img src="img/06-mercadinho.jpg" alt="Loja de bairro" loading="lazy"><h3>Lojas parceiras</h3><p>Leve o casco e pague só o líquido. No mapa você vê quais lojas têm retornável hoje.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= DÚVIDAS ======================= -->
+<div class="page page--duvidas" data-page="duvidas" hidden>
+  <section class="section section--duvidas">
+    <div class="wrap split split--top">
+      <div>
+        <p class="crumb crumb--dark"><a href="#/inicio">Início</a> <span>/</span> Dúvidas</p>
+        <h1>Dúvidas</h1>
+        <p class="muted">Não achou a resposta? Digite ATENDENTE no chat.</p>
+        <button class="btn btn--outline btn--sm" data-open="chat">Abrir o chat</button>
+      </div>
+      <div class="faq" id="duvidas">
+        <details><summary>Preciso de aplicativo ou de cadastro?</summary><p>Não. O site abre no navegador do celular. Nome e celular só são pedidos se você quiser o lembrete por SMS.</p></details>
+        <details><summary>Como funciona o lembrete por SMS?</summary><p>No chat, digite LEMBRETE e diga com que frequência e em que dia costuma comprar. O SMS chega na véspera, às 19h, ou no dia, às 7h30. Nunca entre 21h e 7h.</p></details>
+        <details><summary>Como paro os lembretes?</summary><p>Responda PARAR ao SMS ou digite PARAR no chat. Para pausar por um mês ou mudar o dia, digite LEMBRETE no chat.</p></details>
+        <details><summary>A retornável fica mais barata?</summary><p>Sim. Com o casco, você paga só o líquido.</p></details>
+        <details><summary>Como funciona a máquina?</summary><p>Na tela, toque em "Tenho um casco vazio" e coloque o casco na abertura, de pé e com o gargalo pra frente, com ou sem tampa. A máquina confere na hora e imprime o seu vale-casco.</p></details>
+        <details><summary>Como uso o vale?</summary><p>Na máquina, toque em "Tenho um vale" e coloque o vale na abertura. Você leva a Coca cheia pagando só o líquido. A máquina fica com o vale.</p></details>
+        <details><summary>O vale vence?</summary><p>Sim. Ele é válido por 7 dias, e a data vem impressa. Cada vale pode ser usado uma vez.</p></details>
+        <details><summary>É minha primeira vez e não tenho casco.</summary><p>Na máquina, toque em "É minha primeira vez". Você paga a bebida e o casco. Na próxima, traga o casco e pague só o líquido.</p></details>
+        <details><summary>Como pago na máquina?</summary><p>Pix ou cartão e celular por aproximação. A máquina não aceita dinheiro.</p></details>
+        <details><summary>A máquina não aceitou meu casco.</summary><p>Ela recebe só o casco da Coca-Cola Retornável 2L, vazio e sem trinca. Garrafa descartável, trincada, amassada ou com líquido volta pela mesma abertura. Se tinha líquido, esvazie e tente de novo.</p></details>
+        <details><summary>Onde encontro a retornável?</summary><p>Na máquina da Estação Nova Iguaçu e nas lojas parceiras. Na página Lojas, ou no chat, você vê quais têm retornável hoje perto de você.</p></details>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div class="footer__brand">
+      <span class="brand__script">Coca-Cola</span>
+      <p>Coca-Cola Retornável</p>
+    </div>
+    <nav class="footer__col" aria-label="Programa"><h4>Programa</h4><a href="#/como-funciona">Como funciona</a><a href="#/lojas">Lojas</a><a href="#/duvidas">Dúvidas</a></nav>
+    <nav class="footer__col" aria-label="Fale com a gente"><h4>Fale com a gente</h4><a href="#/chat">Chat</a><a href="#/chat" data-chat="Lembrete por SMS">Lembrete por SMS</a><a href="#/duvidas">Dúvidas</a></nav>
+  </div>
+  <div class="wrap footer__legal">
+    <p>Protótipo acadêmico do Field Project FGV EBAPE. Não é um site oficial da Coca-Cola. Lojas e endereços de exemplo; nada é enviado para fora do navegador.</p>
+  </div>
+</footer>
+
+{{SHEETS}}
+<script src="seq.js?v=7"></script>
+<script src="map.js?v=5"></script>
+<script src="app.js?v=14"></script>
+<script src="chat.js?v=20"></script>
+<script src="fx.js?v=9"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+
+/* =================== v6 =================== */
+
+/* Carregamento: a retornável enchendo */
+.loader { position: fixed; inset: 0; z-index: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; color: #fff;
+  background: radial-gradient(120% 90% at 50% 40%, var(--red) 0%, var(--red-600) 45%, var(--red-800) 100%); transition: opacity .5s var(--ease), visibility .5s; }
+.loader p { margin: 0; font: 700 16px var(--head); letter-spacing: -0.01em; }
+.loader__liquid { animation: fillUp 1.3s cubic-bezier(.45,.05,.3,1) forwards; }
+.loader__liquid path { animation: slosh 1.2s linear infinite; }
+@keyframes fillUp { from { transform: translateY(340px); } to { transform: translateY(80px); } }
+@keyframes slosh { from { transform: translateX(0); } to { transform: translateX(-60px); } }
+.loader.is-done { opacity: 0; visibility: hidden; }
+
+/* troca de página: fade curto */
+#conteudo { transition: opacity .22s var(--ease); }
+#conteudo.is-leaving { opacity: 0; transition-duration: .14s; }
+.page { animation: none; }
+
+/* ---------- Topo da home: painel vermelho + foto, garrafa grande na divisa ---------- */
+.hero { --p: 0; position: sticky; top: var(--top); height: calc(100vh - var(--top)); min-height: 600px; max-height: 1100px; display: block; padding: 0; overflow: hidden; }
+.hero--flow { position: relative; top: 0; }
+.hero__photo { position: absolute; top: 0; right: 0; bottom: 0; width: 56%; overflow: hidden; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; transform: scale(calc(1.02 + var(--p) * .12)); transform-origin: 60% 40%; }
+.hero__photo::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--red-600) 0%, rgba(214,0,10,.55) 22%, rgba(214,0,10,0) 52%), linear-gradient(0deg, rgba(120,0,6,.35), transparent 40%); }
+.hero__in { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; padding-bottom: clamp(120px, 14vw, 210px); padding-top: 24px; }
+.hero__copy { max-width: min(520px, 42vw); transform: translateY(calc(var(--p) * -90px)); opacity: calc(1 - var(--p) * 1.7); }
+.hero__kicker { font: 700 13px var(--head); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 18px; opacity: .9; }
+.hero h1 { font-size: clamp(36px, min(4.2vw, 7.4vh), 66px); line-height: 1.02; margin-bottom: 22px; }
+.hero .lead { font-size: clamp(16px, 1.25vw, 19px); }
+.hero__bottle { position: absolute; z-index: 3; left: 52%; bottom: 3%; height: 88%; margin: 0; width: auto;
+  transform: translateX(-50%) translateY(calc(var(--p) * -7%)) scale(calc(1 + var(--p) * .08)); transform-origin: 50% 100%; }
+.hero__bottle img { height: 100%; width: auto; max-height: none; max-width: none; filter: drop-shadow(0 40px 40px rgba(50,0,0,.45)); }
+.page--inicio .hero__copy > * { animation: rise .9s var(--ease) both; }
+.page--inicio .hero__copy > *:nth-child(2) { animation-delay: .08s; }
+.page--inicio .hero__copy > *:nth-child(3) { animation-delay: .16s; }
+.page--inicio .hero__copy > *:nth-child(4) { animation-delay: .24s; }
+.page--inicio .hero__bottle img { animation: bottleIn 1.2s var(--ease) both .15s; }
+.page--inicio .hero__photo img { animation: photoIn 1.6s var(--ease) both; }
+@keyframes photoIn { from { opacity: 0; transform: scale(1.12); } to { opacity: 1; } }
+
+/* ---------- Garrafa enchendo ---------- */
+.steps-band__img { margin: 0; justify-self: center; width: auto; }
+.steps-band__img img { height: min(66vh, 620px); width: auto; filter: drop-shadow(0 30px 34px rgba(40,0,0,.45)); }
+
+/* ---------- iPhone: altura pela tela, nunca cortado ---------- */
+.iphone { width: auto; height: min(760px, calc(100vh - var(--top) - 96px)); max-width: 100%; aspect-ratio: 393 / 852; }
+.section--sms .split { align-items: start; }
+.section--sms .iphone { justify-self: center; }
+.sms__copy { padding-top: 6vh; }
+.story__phone { top: calc(var(--top) + 24px); height: calc(100vh - var(--top) - 48px); align-items: center; justify-content: center; }
+.story__phone .iphone { height: 100%; max-height: 820px; width: auto; }
+.story__in { grid-template-columns: 1fr auto; }
+
+/* ---------- Busca de lojas ---------- */
+.finder__search { gap: 14px; }
+.search { position: relative; padding-right: 0; }
+.search__loc { flex: none; height: 100%; width: 46px; border: 0; border-left: 1px solid #D8D8DC; background: none; color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.search__loc:hover { background: var(--grey); }
+.select { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.select select { appearance: none; -webkit-appearance: none; height: 46px; border: 1px solid #BDBDC2; border-radius: 0; padding: 0 40px 0 14px; font: 400 15px var(--font); color: var(--ink); cursor: pointer;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23141414' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center; }
+.select select:focus { outline: 2px solid #000; outline-offset: -1px; }
+.finder__status { padding: 0 24px 4px; }
+.stores { border-top: 1px solid var(--line); }
+
+@media (max-width: 1080px) {
+  .hero { position: relative; top: 0; height: auto; min-height: 0; max-height: none; }
+  .hero__photo { position: relative; width: 100%; height: 56vh; min-height: 320px; }
+  .hero__photo::before { background: linear-gradient(0deg, var(--red-600) 0%, rgba(214,0,10,0) 45%); }
+  .hero__in { height: auto; padding-top: 24px; padding-bottom: 140px; }
+  .hero__copy { max-width: 620px; transform: none; opacity: 1; }
+  .hero__bottle { left: auto; right: 6%; top: 20vh; bottom: auto; height: auto; transform: none; }
+  .hero__bottle img { height: 46vh; }
+  .sms__copy { padding-top: 0; }
+  .iphone { height: min(640px, 82vh); }
+}
+@media (max-width: 860px) {
+  .story__phone { display: none; }
+}
+@media (max-width: 560px) {
+  .hero__photo { height: 44vh; }
+  .hero__bottle { right: 2%; top: 14vh; }
+  .hero__bottle img { height: 38vh; }
+  .hero h1 { font-size: 36px; }
+  .steps-band__img img { height: 52vh; }
+  .iphone { height: auto; width: min(300px, 86%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader { display: none; }
+  .hero__copy, .hero__bottle, .hero__photo img { transform: none !important; opacity: 1 !important; }
+}
