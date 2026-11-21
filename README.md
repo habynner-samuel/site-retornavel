@@ -4,7 +4,7 @@ Academic prototype from the FGV EBAPE Field Project. **This is not an official C
 
 The site replaces the WhatsApp channel with a chat inside the site. Scanning the QR code on the bottle, the machine or the store opens that chat directly. The site also explains how the returnable bottle works: the machine at Estação Nova Iguaçu, the vale-casco (bottle voucher) and the partner stores on the map.
 
-Published at: https://coca-retornavel.vercel.app
+Published at: https://retornavel.site
 
 ## Structure
 
