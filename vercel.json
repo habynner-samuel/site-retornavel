@@ -1,0 +1,7 @@
+{
+  "framework": null,
+  "installCommand": "echo sem dependencias",
+  "buildCommand": "echo site estatico",
+  "outputDirectory": "site",
+  "headers": [{ "source": "/maquina.glb", "headers": [{ "key": "Content-Type", "value": "model/gltf-binary" }, { "key": "Cache-Control", "value": "public, max-age=86400" }] }]
+}
