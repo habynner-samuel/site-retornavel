@@ -8,15 +8,24 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* 1) carregamento */
+  // só na primeira visita da sessão; sai assim que a página carrega (mínimo curto para não piscar)
   const loader = document.getElementById('loader');
+  let seen = false;
+  try { seen = sessionStorage.getItem('ret-loaded') === '1'; sessionStorage.setItem('ret-loaded', '1'); } catch {}
+  if (loader && (seen || reduce)) loader.remove();
+  if (loader && loader.isConnected) document.documentElement.classList.add('is-loading');
   const t0 = performance.now();
+  let hidden = false;
   function hideLoader() {
-    if (!loader) return;
-    const wait = Math.max(0, 1300 - (performance.now() - t0));
-    setTimeout(() => { loader.classList.add('is-done'); setTimeout(() => loader.remove(), 600); }, reduce ? 0 : wait);
+    if (!loader || hidden || !loader.isConnected) return;
+    hidden = true;
+    const wait = Math.max(0, 500 - (performance.now() - t0));
+    setTimeout(() => { loader.classList.add('is-done'); document.documentElement.classList.remove('is-loading'); setTimeout(() => loader.remove(), 400); }, wait);
   }
-  if (document.readyState === 'complete') hideLoader(); else addEventListener('load', hideLoader);
-  setTimeout(hideLoader, 4500); // nunca prende a tela
+  // sai quando o HTML e as fontes estão prontos (não espera os quadros 3D, que carregam depois)
+  const ready = () => (document.fonts ? document.fonts.ready : Promise.resolve()).then(hideLoader);
+  if (document.readyState !== 'loading') ready(); else addEventListener('DOMContentLoaded', ready);
+  setTimeout(hideLoader, 1800); // nunca prende a tela
 
   /* 2) troca de página */
   const main = document.getElementById('conteudo');

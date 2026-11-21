@@ -3,12 +3,12 @@
 (function () {
   const W = 1600, H = 1000;
   const STORES = [
-    { id: 'ze', n: 1, name: 'Mercearia do Seu Zé', bairro: 'Centro, Nova Iguaçu', kind: 'Loja parceira', tags: [], km: 0.4, x: 905, y: 520, addr: 'Rua Mal. Floriano, 214 · Centro, Nova Iguaçu', hours: 'Seg a sáb, 7h às 21h · Dom, 8h às 13h', lat: -22.7593, lng: -43.4509, photos: ['img/06-mercadinho.jpg', 'img/03-balcao.jpg'] },
-    { id: 'prez', n: 2, name: 'Máquina Retornável · Estação Nova Iguaçu', bairro: 'Centro, Nova Iguaçu', kind: 'Máquina Retornável', tags: ['maquina'], km: 0.9, x: 1030, y: 470, cold: true, addr: 'Estação Nova Iguaçu (SuperVia) · plataforma', hours: 'No horário da estação · Pix ou aproximação', lat: -22.7591, lng: -43.4513, photos: ['img/09-maquina.jpg', 'img/02-qr.jpg'] },
-    { id: 'bv', n: 3, name: 'Mercadinho Boa Vista', bairro: 'Rancho Novo', kind: 'Loja parceira', tags: [], km: 1.6, x: 760, y: 300, cold: true, addr: 'Estrada de Madureira, 88 · Rancho Novo', hours: 'Seg a sáb, 7h às 20h', lat: -22.7489, lng: -43.4602, photos: ['img/03-balcao.jpg', 'img/06-mercadinho.jpg'] },
-    { id: 'ki', n: 4, name: 'Ki-Barato da Dona Célia', bairro: 'Comendador Soares', kind: 'Loja parceira', tags: [], km: 2.1, x: 1230, y: 640, cold: false, addr: 'Rua Sete de Setembro, 40 · Comendador Soares', hours: 'Seg a sáb, 8h às 19h', lat: -22.7702, lng: -43.4321, photos: ['img/06-mercadinho.jpg', 'img/10-lojista.jpg'] },
-    { id: 'pc', n: 5, name: 'Bar e Lanchonete Ponto Certo', bairro: 'Mesquita', kind: 'Loja parceira', tags: [], km: 3.4, x: 1390, y: 300, cold: true, addr: 'Av. Brasil, 1.020 · Mesquita', hours: 'Todos os dias, 10h às 23h', lat: -22.7829, lng: -43.4271, photos: ['img/01-consumo.jpg', 'img/03-balcao.jpg'] },
-    { id: 'cg', n: 6, name: 'Supermercado Cruzeiro', bairro: 'Jardim Iguaçu', kind: 'Loja parceira', tags: [], km: 2.8, x: 640, y: 720, cold: true, addr: 'Rua Dr. Barros Júnior, 500 · Jardim Iguaçu', hours: 'Todos os dias, 7h às 22h', lat: -22.7690, lng: -43.4655, photos: ['img/06-mercadinho.jpg', 'img/03-balcao.jpg'] }
+    { id: 'ze', n: 1, name: 'Mercearia do Seu Zé', bairro: 'Centro, Nova Iguaçu', kind: 'Loja parceira', tags: [], km: 0.4, x: 905, y: 520, addr: 'Rua Mal. Floriano, 214 · Centro, Nova Iguaçu', hours: 'Seg a sáb, 7h às 21h · Dom, 8h às 13h', lat: -22.7593, lng: -43.4509, photos: ['img/06-mercadinho.webp', 'img/03-balcao.webp'] },
+    { id: 'prez', n: 2, name: 'Máquina Retornável · Estação Nova Iguaçu', bairro: 'Centro, Nova Iguaçu', kind: 'Máquina Retornável', tags: ['maquina'], km: 0.9, x: 1030, y: 470, cold: true, addr: 'Estação Nova Iguaçu (SuperVia) · plataforma', hours: 'No horário da estação · Pix ou aproximação', lat: -22.7591, lng: -43.4513, photos: ['img/09-maquina.webp', 'img/02-qr.webp'] },
+    { id: 'bv', n: 3, name: 'Mercadinho Boa Vista', bairro: 'Rancho Novo', kind: 'Loja parceira', tags: [], km: 1.6, x: 760, y: 300, cold: true, addr: 'Estrada de Madureira, 88 · Rancho Novo', hours: 'Seg a sáb, 7h às 20h', lat: -22.7489, lng: -43.4602, photos: ['img/03-balcao.webp', 'img/06-mercadinho.webp'] },
+    { id: 'ki', n: 4, name: 'Ki-Barato da Dona Célia', bairro: 'Comendador Soares', kind: 'Loja parceira', tags: [], km: 2.1, x: 1230, y: 640, cold: false, addr: 'Rua Sete de Setembro, 40 · Comendador Soares', hours: 'Seg a sáb, 8h às 19h', lat: -22.7702, lng: -43.4321, photos: ['img/06-mercadinho.webp', 'img/10-lojista.webp'] },
+    { id: 'pc', n: 5, name: 'Bar e Lanchonete Ponto Certo', bairro: 'Mesquita', kind: 'Loja parceira', tags: [], km: 3.4, x: 1390, y: 300, cold: true, addr: 'Av. Brasil, 1.020 · Mesquita', hours: 'Todos os dias, 10h às 23h', lat: -22.7829, lng: -43.4271, photos: ['img/01-consumo.webp', 'img/03-balcao.webp'] },
+    { id: 'cg', n: 6, name: 'Supermercado Cruzeiro', bairro: 'Jardim Iguaçu', kind: 'Loja parceira', tags: [], km: 2.8, x: 640, y: 720, cold: true, addr: 'Rua Dr. Barros Júnior, 500 · Jardim Iguaçu', hours: 'Todos os dias, 7h às 22h', lat: -22.7690, lng: -43.4655, photos: ['img/06-mercadinho.webp', 'img/03-balcao.webp'] }
   ];
   const ME = { x: 960, y: 560 };
   const ns = 'http://www.w3.org/2000/svg';
@@ -79,7 +79,7 @@
     });
     host.appendChild(svg);
     // legenda e zoom
-    host.insertAdjacentHTML('beforeend', '<div class="map__legend"><span><i style="background:#F40009"></i>Disponível hoje</span><span><i style="background:#8f8f8f"></i>Em falta hoje</span><span><i style="background:#1A73E8"></i>Você</span></div><div class="map__zoom"><button type="button" data-z="1" aria-label="Aproximar">+</button><button type="button" data-z="-1" aria-label="Afastar">−</button></div>');
+    host.insertAdjacentHTML('beforeend', '<div class="map__legend"><span><i style="background:#F40009"></i>Disponível hoje</span><span><i style="background:#8f8f8f"></i>Em falta hoje</span><span class="map__me" hidden><i style="background:#1A73E8"></i>Você (simulado)</span></div><div class="map__zoom"><button type="button" data-z="1" aria-label="Aproximar">+</button><button type="button" data-z="-1" aria-label="Afastar">−</button></div>');
     return { svg, g, me };
   }
 
@@ -147,7 +147,7 @@
       if (selected && !visible.has(selected)) { selected = null; popup(null); }
     },
     select(id) { if (ensure()) select(id, false); },
-    showMe() { if (!ensure()) return; ui.me.style.display = ''; scale = 1.25; selected = null; popup(null); apply(ME.x, ME.y); },
+    showMe() { if (!ensure()) return; ui.me.style.display = ''; const lg = document.querySelector('.map__me'); if (lg) lg.hidden = false; scale = 1.25; selected = null; popup(null); apply(ME.x, ME.y); },
     onSelect(fn) { onSelect = fn; },
     reset() { if (!ui) return; scale = 1; selected = null; popup(null); ui.g.style.transform = ''; }
   };

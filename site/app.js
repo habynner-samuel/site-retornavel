@@ -2,6 +2,8 @@
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  // o site troca de página pelo endereço: o navegador não deve devolver a rolagem antiga ao recarregar
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
   /* Header e reveal */
   const topbar = $('.topbar');
@@ -13,6 +15,11 @@
     $$('.reveal').forEach(el => io.observe(el));
   } else {
     $$('.reveal').forEach(el => el.classList.add('is-in'));
+  }
+  // o botão flutuante do chat sai de cena quando o rodapé aparece (não cobre os links)
+  const launch = $('.chat-launch'), foot = $('.footer');
+  if (launch && foot && 'IntersectionObserver' in window) {
+    new IntersectionObserver(es => launch.classList.toggle('is-away', es[0].isIntersecting)).observe(foot);
   }
 
   /* Sheets */
@@ -61,17 +68,18 @@
       li.className = 'store' + (s.coldNow ? '' : ' is-off');
       li.dataset.id = s.id;
       li.tabIndex = 0;
+      li.setAttribute('role', 'button');
       li.innerHTML = '<span class="store__n"></span><h3></h3><span class="store__km"></span><p class="b"></p><span class="store__state"></span>';
       li.querySelector('.store__n').textContent = s.n;
       li.querySelector('h3').textContent = s.name;
       li.querySelector('.store__km').textContent = s.km.toLocaleString('pt-BR') + ' km';
-      li.querySelector('.b').textContent = s.kind + ' · ' + s.bairro;
+      li.querySelector('.b').textContent = s.bairro;
       const st = li.querySelector('.store__state');
       st.textContent = s.coldNow ? 'Disponível hoje' : 'Em falta hoje';
       st.classList.add(s.coldNow ? 'store__state--ok' : 'store__state--off');
       const open = () => { if (window.RetMap) window.RetMap.select(s.id); if (window.RetShop) window.RetShop.open(s.id); };
       li.addEventListener('click', open);
-      li.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+      li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
       list.append(li);
     });
   }

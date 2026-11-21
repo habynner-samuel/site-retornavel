@@ -337,7 +337,8 @@
   function begin(origem) {
     C = fresh(origem); $msgs.textContent = ''; lastWho = null;
     sys(origem && origem !== 'site' ? `QR Code lido: ${ORIGENS[origem].onde}` : 'Chat Coca-Cola Retornável');
-    queue.push({ t: 'me', x: ORIGENS[C.origem].txt });
+    // quem chega por um QR tem a primeira mensagem pronta (como no WhatsApp); quem abre pelo site não
+    if (origem && origem !== 'site') queue.push({ t: 'me', x: ORIGENS[C.origem].txt });
     if (origem === 'maquina') {
       bot('Oi! Você está na máquina da Estação Nova Iguaçu. O que vai fazer agora?');
       ask(['Como devolver o casco', 'Como usar o vale', 'É minha primeira vez', 'Menu']); go('menu');
