@@ -46,22 +46,33 @@ if what in ('html', 'all'):
   <div class="ios__dock"><span class="ios__round"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M8 2h8l-1 6H9z"/><path d="M9 8h6v12a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg></span><span class="ios__round"><svg width="20" height="18" viewBox="0 0 24 20" fill="none" stroke="#fff" stroke-width="1.8"><path d="M3 6h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="11.5" r="3.6"/></svg></span></div>
   <span class="ios__home"></span>
 </div>'''
-    # Tela de carregamento: o mesmo perfil do casco usado no Blender (mm), desenhado em SVG
-    P = [(0.0, 7.0), (8, 6.2), (16, 4.0), (24, 1.6), (30, 0.3), (34, 0.0), (39, 0.9), (43, 3.2), (46.2, 7.5), (48.4, 14), (49.3, 22), (49.4, 34), (49.0, 48), (47.6, 66), (46.6, 82), (46.4, 96), (46.8, 112), (47.4, 124), (47.6, 129), (46.6, 131.5), (46.6, 133.5), (47.9, 136), (48.0, 172), (47.9, 210), (46.8, 212.5), (46.8, 214.5), (47.9, 217), (47.6, 224), (46.6, 232), (44.4, 242), (40.8, 252), (36.0, 262), (30.4, 271), (24.4, 280), (19.0, 288), (15.2, 294), (13.2, 298), (12.6, 301), (12.6, 304.5), (16.6, 305), (16.8, 306.6), (13.4, 307.2), (13.2, 309)]
-    X = lambda r: 60 + r; Y = lambda z: 335 - z
-    Q = P[[z for r, z in P].index(0):]  # fundo reto: tira o domo central do perfil
-    right = [f'{X(r):.1f} {Y(z):.1f}' for r, z in Q]
-    left = [f'{120 - X(r):.1f} {Y(z):.1f}' for r, z in reversed(Q)]
-    body = 'M60 335 L' + ' L'.join(right) + ' L' + ' L'.join(left) + ' Z'
-    loader = f'''<div class="loader" id="loader" role="status" aria-label="Carregando">
+    # Tela de carregamento: o casco do Blender (mm) desenhado em SVG com curvas suaves,
+    # fundo petaloide, rótulo com a onda branca e tampa verde com estrias
+    loader = '''<div class="loader" id="loader" role="status" aria-label="Carregando">
   <svg viewBox="0 0 120 345" width="96" height="276" aria-hidden="true">
-    <defs><clipPath id="lc"><path d="{body}"/></clipPath></defs>
+    <defs>
+      <path id="lb" d="M73.2 26 L73.4 27.6 L76.8 28.2 L76.8 30.2 L72.8 30.8 C72.8 31.3 72.5 32.9 72.6 34.0 C72.7 35.1 72.8 36.2 73.4 37.5 C74.0 38.8 74.7 40.1 76.0 42.0 C77.3 43.9 79.1 46.3 81.0 49.0 C82.9 51.7 85.3 54.8 87.5 58.0 C89.7 61.2 92.0 64.5 94.0 68.0 C96.0 71.5 98.0 75.3 99.6 79.0 C101.2 82.7 102.7 86.3 103.8 90.0 C104.9 93.7 105.8 97.5 106.4 101.0 C107.0 104.5 107.3 108.2 107.6 111.0 C107.8 113.8 107.9 116.4 107.9 117.5 L106.7 120.0 L106.7 122.8 L107.9 125.4 C107.9 131.5 108.0 149.8 108.0 162.0 C108.0 174.2 107.9 192.5 107.9 198.6 L106.6 201.2 L106.6 203.8 C106.8 204.2 107.6 204.6 107.7 206.5 C107.8 208.4 107.4 211.4 107.2 215.0 C107.0 218.6 106.7 223.8 106.5 228.0 C106.3 232.2 106.3 235.8 106.3 240.0 C106.3 244.2 106.5 248.3 106.7 253.0 C107.0 257.7 107.4 262.5 107.8 268.0 C108.2 273.5 108.8 280.5 109.1 286.0 C109.4 291.5 109.5 296.5 109.5 301.0 C109.5 305.5 109.4 309.7 109.2 313.0 C109.0 316.3 108.8 318.6 108.2 321.0 C107.6 323.4 106.8 325.7 105.8 327.4 C104.8 329.1 102.6 330.6 102.0 331.2 C100 333.6 96 334.8 90 335 C85 335.2 81 333.2 78 331.4 C75 330 72 333.2 68 334.6 C63 335.6 57 335.6 52 334.6 C48 333.2 45 330 42 331.4 C39 333.2 35 335.2 30 335 C24 334.8 20 333.6 18 331.2 C17.4 330.6 15.2 329.1 14.2 327.4 C13.2 325.7 12.4 323.4 11.8 321.0 C11.2 318.6 11.0 316.3 10.8 313.0 C10.6 309.7 10.5 305.5 10.5 301.0 C10.5 296.5 10.6 291.5 10.9 286.0 C11.2 280.5 11.8 273.5 12.2 268.0 C12.6 262.5 13.0 257.7 13.3 253.0 C13.5 248.3 13.7 244.2 13.7 240.0 C13.7 235.8 13.7 232.2 13.5 228.0 C13.3 223.8 13.0 218.6 12.8 215.0 C12.6 211.4 12.2 208.4 12.3 206.5 C12.4 204.6 13.2 204.2 13.4 203.8 L13.4 201.2 L12.1 198.6 C12.1 192.5 12.0 174.2 12.0 162.0 C12.0 149.8 12.1 131.5 12.1 125.4 L13.3 122.8 L13.3 120.0 L12.1 117.5 C12.1 116.4 12.2 113.8 12.4 111.0 C12.7 108.2 13.0 104.5 13.6 101.0 C14.2 97.5 15.1 93.7 16.2 90.0 C17.3 86.3 18.8 82.7 20.4 79.0 C22.0 75.3 24.0 71.5 26.0 68.0 C28.0 64.5 30.3 61.2 32.5 58.0 C34.7 54.8 37.1 51.7 39.0 49.0 C40.9 46.3 42.7 43.9 44.0 42.0 C45.3 40.1 46.0 38.8 46.6 37.5 C47.2 36.2 47.3 35.1 47.4 34.0 C47.5 32.9 47.2 31.3 47.2 30.8 L43.2 30.2 L43.2 28.2 L46.6 27.6 L46.8 26.0 Z"/>
+      <clipPath id="lc"><use href="#lb"/></clipPath>
+      <linearGradient id="lg-shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".22" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>
+      <linearGradient id="lg-label" x1="0" x2="1"><stop offset="0" stop-color="#B5000A"/><stop offset=".3" stop-color="#F40009"/><stop offset=".55" stop-color="#FF2A2F"/><stop offset="1" stop-color="#A30008"/></linearGradient>
+      <linearGradient id="lg-cap" x1="0" x2="1"><stop offset="0" stop-color="#0F5E25"/><stop offset=".35" stop-color="#25A246"/><stop offset=".6" stop-color="#1E8A3A"/><stop offset="1" stop-color="#0C4F1F"/></linearGradient>
+    </defs>
     <g clip-path="url(#lc)">
-      <rect x="0" y="0" width="120" height="345" fill="rgba(255,255,255,.14)"/>
-      <g class="loader__liquid"><path d="M-60 0 Q -30 -6 0 0 T 60 0 T 120 0 T 180 0 V 360 H -60 Z" fill="#2A0605"/><path d="M-60 2 Q -30 -4 0 2 T 60 2 T 120 2 T 180 2 V 8 H -60 Z" fill="#6B1A10" opacity=".7"/></g>
+      <rect x="0" y="0" width="120" height="345" fill="rgba(255,255,255,.16)"/>
+      <g class="loader__liquid"><path d="M-60 0 Q -30 -6 0 0 T 60 0 T 120 0 T 180 0 V 360 H -60 Z" fill="#3A0A06"/><path d="M-60 2 Q -30 -4 0 2 T 60 2 T 120 2 T 180 2 V 8 H -60 Z" fill="#8A2A14" opacity=".7"/></g>
+      <rect x="0" y="0" width="120" height="345" fill="url(#lg-shade)"/>
+      <rect x="11" y="125.4" width="98" height="73.2" fill="url(#lg-label)"/>
+      <path d="M11 181 C35 170 60 192 109 174 V180 C62 197 36 177 11 187 Z" fill="#fff"/>
+      <path d="M11 125.4 H109 M11 198.6 H109" stroke="#fff" stroke-width="1" opacity=".5"/>
+      <path d="M24 58 C19 70 17 84 17.5 100 M20 210 C19 240 19 280 21 318" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".42"/>
+      <path d="M100 96 C102 104 103 112 103 118 M103 212 C104 250 104 290 102 316" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".35"/>
     </g>
-    <path d="{body}" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/>
-    <rect x="43" y="7.5" width="34" height="19" rx="3" fill="#1E8A3A"/>
+    <use href="#lb" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M44 31 H76" stroke="#fff" stroke-width="1.2" opacity=".6"/>
+    <rect x="43.6" y="21.6" width="32.8" height="5.4" rx="1.2" fill="#145E28"/>
+    <rect x="43" y="7" width="34" height="15.4" rx="2.6" fill="url(#lg-cap)"/>
+    <path d="M46 9.5 V20 M49.5 9.5 V20 M53 9.5 V20 M56.5 9.5 V20 M60 9.5 V20 M63.5 9.5 V20 M67 9.5 V20 M70.5 9.5 V20 M74 9.5 V20" stroke="#0A3F18" stroke-width=".9" opacity=".55"/>
+    <path d="M44 22.6 H76" stroke="#0A3F18" stroke-width=".8" stroke-dasharray="2 1.2" opacity=".7"/>
   </svg>
   <p>Enchendo a sua retornável…</p>
 </div>'''
